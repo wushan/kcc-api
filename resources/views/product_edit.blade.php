@@ -6,7 +6,7 @@
                     <li><a href="#profile{{$lrow->Id}}" aria-controls="profile{{$lrow->Id}}" role="tab" data-toggle="tab">{{$lrow->lang}}</a></li>
                 @endforeach
             </ul>
-            <form action="/product/product_edit/{{$query->PdID}}/{{$previd}}" method="post" enctype="multipart/form-data">
+            <form action="/product/product_edit/{{$query->PdID}}/{{$subid}}/{{$previd}}" method="post" enctype="multipart/form-data">
 
                 <div class="tab-content">
                     <input type="hidden" class="form-control input-lg" maxlength="30" name="item" value="news">
@@ -38,7 +38,7 @@
                     @endforeach
                     <?php echo csrf_field(); ?>
                     <button class="btn btn-primary btn-lg waves-effect">確定</button>
-                    <a href="/product/product_list/{{$previd}}" class="btn btn-success btn-lg waves-effect">返回</a>
+                    <a href="/product/product_list/{{$subid}}/{{$previd}}" class="btn btn-success btn-lg waves-effect">返回</a>
                 </div>
             </form>
         </div>

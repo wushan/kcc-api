@@ -30,7 +30,7 @@
                                 <td width="15%">
                                     <a href="/product/product_category_edit/{{$row->PcID}}" class="btn btn-success"><i class="zmdi zmdi-edit"></i></a>
                                     <a href="/product/product_category_delete/{{$row->PcID}}" onclick="return confirm('確定要刪除?');" class="btn btn-danger sa-warning"><i class="zmdi zmdi-delete"></i></a>
-                                    <a href="/product/product_list/{{$row->PcID}}" class="btn bgm-deeporange "><i class="zmdi zmdi-collection-folder-image"></i></a>
+                                    <a href="/product/product_sub_category/{{$row->PcID}}" class="btn bgm-deeporange "><i class="zmdi zmdi-collection-folder-image"></i></a>
                                 </td>
                             </tr>
                         @endforeach

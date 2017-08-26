@@ -78,12 +78,17 @@ class KccApiController
                     $data['product'][$k]['intro']=$row->langs[($post['lang'] - 1)]->intro;
                     $data['product'][$k]['extra_intro']=json_decode($row->langs[($post['lang'] - 1)]->extra_intro,true);
                     $data['product'][$k]['products']='';
-                    if($product=$row->products){
-                        foreach ($product as $p =>$prow){
-                            $data['product'][$k]['products'][$p]['image'] = $prow->image;
-                            $data['product'][$k]['products'][$p]['image_thumb'] = $prow->image_thumb;
-                            $data['product'][$k]['products'][$p]['title'] = $prow->langs[($post['lang'] - 1)]->title;
-                            $data['product'][$k]['products'][$p]['intro'] = $prow->langs[($post['lang'] - 1)]->intro;
+                    if($sub_category=$row->sub_category){
+                        foreach ($sub_category as $s =>$srow){
+                            $data['product'][$k]['sub_category'][$s]['title'] = $srow->langs[($post['lang'] - 1)]->title;
+                            if($product=$srow->products){
+                                foreach ($product as $p =>$prow){
+                                    $data['product'][$k]['sub_category'][$s]['products'][$p]['image'] = $prow->image;
+                                    $data['product'][$k]['sub_category'][$s]['products'][$p]['image_thumb'] = $prow->image_thumb;
+                                    $data['product'][$k]['sub_category'][$s]['products'][$p]['title'] = $prow->langs[($post['lang'] - 1)]->title;
+                                    $data['product'][$k]['sub_category'][$s]['products'][$p]['intro'] = $prow->langs[($post['lang'] - 1)]->intro;
+                                }
+                            }
                         }
                     }
                }
@@ -93,6 +98,7 @@ class KccApiController
                 $data['description'] = $seo->langs[($post['lang'] - 1)]->description;
             }
         }
+
         return json_encode($data, JSON_UNESCAPED_SLASHES);
     }
 
@@ -162,6 +168,7 @@ class KccApiController
         if ($post) {
             if ($news) {
                 foreach ($news as $k => $row) {
+                    $data['news'][$k]['id'] = $row->NewsID;
                     $data['news'][$k]['date'] = $row->date;
                     $data['news'][$k]['image'] = $row->image;
                     $data['news'][$k]['title'] = $row->langs[($post['lang'] - 1)]->title;

@@ -6,7 +6,7 @@
 <div class="container">
     <div class="card">
         <div class="card-header">
-            <a href="/product" class="btn btn-success btn-lg waves-effect">返回</a>
+            <a href="/product/product_sub_category/{{$previd}}" class="btn btn-success btn-lg waves-effect">返回</a>
         </div>
         <div class="card-header">
             <form class="dropzone dz-clickable" id="dropzone-upload">
@@ -33,8 +33,8 @@
                 <td style="vertical-align: middle">{{$row->langs[0]->title}}</td>
                 <td style="vertical-align: middle">{{$row->langs[0]->intro}}</td>
                 <td width="15%" style="vertical-align: middle">
-                <a href="/product/product_edit/{{$row->PdID}}/{{$previd}}" class="btn btn-success"><i class="zmdi zmdi-edit"></i></a>
-                <a href="/product/product_delete/{{$row->PdID}}/{{$previd}}" onclick="return confirm('確定要刪除?');" class="btn btn-danger sa-warning"><i class="zmdi zmdi-delete"></i></a>
+                <a href="/product/product_edit/{{$row->PdID}}/{{$subid}}/{{$previd}}" class="btn btn-success"><i class="zmdi zmdi-edit"></i></a>
+                <a href="/product/product_delete/{{$row->PdID}}/{{$subid}}/{{$previd}}" onclick="return confirm('確定要刪除?');" class="btn btn-danger sa-warning"><i class="zmdi zmdi-delete"></i></a>
                 </td>
                 </tr>
                 @endforeach
@@ -53,7 +53,7 @@
             "searching": false
         });
         $("#dropzone-upload").dropzone({
-            url: "/product/product_list/{{$previd}}" ,
+            url: "/product/product_list/{{$subid}}/{{$previd}}" ,
             acceptedFiles: 'image/*',
             paramName: "image",
             init: function () {

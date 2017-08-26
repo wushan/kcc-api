@@ -83,7 +83,7 @@
                     <div class="row">
                         <div class="form-group col-sm-4">
                             <div class="fg-line ">
-                                <input type="text" class="form-control input-lg" maxlength="50" placeholder="請輸入分類說明"
+                                <input type="text" class="form-control input-lg" maxlength="255" placeholder="請輸入分類說明"
                                        name="langs[{{$lrow->Id}}][intro]" required>
                             </div>
                         </div>

@@ -16,7 +16,12 @@ class ProductModel extends Model
             foreach ($query as $row) {
                 $langs = $this->getProductCategorylangs($row->PcID);
                 $row->langs = $langs;
-                $row->products = $this->getProductByPcID($row->PcID);
+                $row->sub_category = $this->getProductSubCategorybyPcID($row->PcID);
+                if($sub=$row->sub_category){
+                    foreach ($sub as $srow){
+                        $srow->products = $this->getProductByPcID($srow->PscID);
+                    }
+                }
             }
         }
         return $query;
@@ -48,6 +53,28 @@ class ProductModel extends Model
     {
         $query = DB::table('product_star')->max('order');
 
+        return $query;
+    }
+
+    public function getProductSubCategorybyPcID($id)
+    {
+        $query = DB::table('product_sub_category')->where('pcID', $id)->get();
+        if ($query) {
+            foreach ($query as $row) {
+                $langs = $this->getProductSubCategorylangs($row->PscID);
+                $row->langs = $langs;
+            }
+        }
+        return $query;
+    }
+
+    public function getProductSubCategorybyPscID($id)
+    {
+        $query = DB::table('product_sub_category')->where('PscID', $id)->first();
+        if ($query) {
+            $langs = $this->getProductSubCategorylangs($query->PscID);
+            $query->langs = $langs;
+        }
         return $query;
     }
 
@@ -189,6 +216,13 @@ class ProductModel extends Model
     private function getProductlangs($id)
     {
         $lang = DB::table('product_lang')->where('pdID', $id)->get();
+
+        return $lang;
+    }
+
+    private function getProductSubCategorylangs($id)
+    {
+        $lang = DB::table('product_sub_category_lang')->where('PscID', $id)->get();
 
         return $lang;
     }

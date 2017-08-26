@@ -39,6 +39,7 @@ class Kernel extends HttpKernel
         'api' => [
             'throttle:60,1',
             'bindings',
+            'cors'// install laravel-cros 增加cors中间件，解决跨域问题
         ],
     ];
 

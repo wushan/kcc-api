@@ -53,9 +53,13 @@ Route::group(['prefix' => 'product'], function () {
     Route::any('/product_category_add', 'ProductController@product_category_add');
     Route::any('/product_category_edit/{id}', 'ProductController@product_category_edit');
     Route::get('/product_category_delete/{id}', 'ProductController@product_category_delete');
-    Route::any('/product_list/{id}', 'ProductController@product_list');
-    Route::any('/product_delete/{id}/{previd}', 'ProductController@product_delete');
-    Route::any('/product_edit/{id}/{previd}', 'ProductController@product_edit');
+    Route::any('/product_sub_category/{id}', 'ProductController@product_sub_category');
+    Route::any('/product_sub_category_add/{id}', 'ProductController@product_sub_category_add');
+    Route::any('/product_sub_category_edit/{id}/{previd}', 'ProductController@product_sub_category_edit');
+    Route::any('/product_sub_category_delete/{id}/{previd}', 'ProductController@product_sub_category_delete');
+    Route::any('/product_list/{subid}/{previd}', 'ProductController@product_list');
+    Route::any('/product_delete/{id}/{subid}/{previd}', 'ProductController@product_delete');
+    Route::any('/product_edit/{id}/{subid}/{previd}', 'ProductController@product_edit');
     Route::any('/product_seo', 'ProductController@product_seo');
 });
 
@@ -69,11 +73,11 @@ Route::group(['prefix' => 'news'], function () {
     Route::any('/news_seo', 'NewsController@news_seo');
 });
 
-Route::group(['prefix' => 'kcc-api'], function () {
-    Route::any('/get-home-data', 'KccApiController@getHomeData')->middleware('cors');
-    Route::any('/get-about-research-data', 'KccApiController@getAboutResearchData')->middleware('cors');
-    Route::any('/get-product', 'KccApiController@getProduct')->middleware('cors');
-    Route::any('/get-product-application', 'KccApiController@getProductApplication')->middleware('cors');
-    Route::any('/get-product-star', 'KccApiController@getProductStar')->middleware('cors');
-    Route::any('/get-news', 'KccApiController@getNews')->middleware('cors');
+Route::group(['middleware' => 'cors','prefix' => 'kcc-api'], function () {
+    Route::any('/get-home-data', 'KccApiController@getHomeData');
+    Route::any('/get-about-research-data', 'KccApiController@getAboutResearchData');
+    Route::any('/get-product', 'KccApiController@getProduct');
+    Route::any('/get-product-application', 'KccApiController@getProductApplication');
+    Route::any('/get-product-star', 'KccApiController@getProductStar');
+    Route::any('/get-news', 'KccApiController@getNews');
 });

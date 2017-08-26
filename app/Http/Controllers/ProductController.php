@@ -261,10 +261,69 @@ class ProductController extends Controller
         return redirect('/product');
     }
 
-    public function product_list(Request $request, $previd)
+    public function product_sub_category($previd)
+    {
+        $query = App::make('App\ProductModel')->getProductSubCategorybyPcID($previd);
+
+        return view('layout', ['main' => 'product_sub_category', 'query' => $query,'previd'=>$previd]);
+    }
+
+    public function product_sub_category_add(Request $request ,$previd)
+    {
+        $lang = App::make('App\LangModel')->getLang();
+        $post = $request->all();
+
+        if ($post) {
+            unset($post['_token']);
+            $date['pcID']=$previd;
+            $id =DB::table('product_sub_category')->insertGetId($date);
+            $postlang = $post['langs'];
+            if ($postlang) {
+                foreach ($postlang as $k => $lrow) {
+                    $postlang[$k]['pscID'] = $id;
+                }
+                DB::table('product_sub_category_lang')->insert($postlang);
+
+            }
+            return redirect('/product/product_sub_category/'.$previd);
+        }
+        return view('layout', ['main' => 'product_sub_category_add', 'lang' => $lang, 'previd' => $previd]);
+    }
+
+    public function product_sub_category_edit(Request $request, $id, $previd)
+    {
+        $lang = App::make('App\LangModel')->getLang();
+        $query = App::make('App\ProductModel')->getProductSubCategorybyPscID($id);
+        $post = $request->all();
+
+        if ($post) {
+            unset($post['_token']);
+            $postLangs = $post['langs'];
+            if ($postLangs) {
+                foreach ($postLangs as $k => $lrow) {
+                    DB::table('product_sub_category_lang')->where('PsclID', $lrow['PsclID'])->update($lrow);
+                }
+            }
+            return redirect('/product/product_sub_category/'.$previd);
+        }
+        return view('layout', ['main' => 'product_sub_category_edit', 'lang' => $lang, 'query' => $query, 'previd' => $previd]);
+    }
+
+
+    public function product_sub_category_delete($id, $previd)
+    {
+        $query = App::make('App\ProductModel')->getProductSubCategorybyPscID($id);
+        if ($query) {
+            DB::table('product_sub_category')->where('PscID', $id)->delete();
+            DB::table('product_sub_category_lang')->where('PscID', $id)->delete();
+        }
+        return redirect('/product/product_sub_category/' . $previd);
+    }
+
+    public function product_list(Request $request, $subid,$previd)
     {
         $post = $request->all();
-        $query = App::make('App\ProductModel')->getProductByPcID($previd);
+        $query = App::make('App\ProductModel')->getProductByPcID($subid);
 
         if ($post) {
             if (Input::file('image')) {
@@ -280,17 +339,17 @@ class ProductController extends Controller
                 Image::make($path . '/' . $fileNmae)->resize(320, null,function ($constraint) { $constraint->aspectRatio();})->save($path . '/_' . $fileNmae);
                 $data['image'] = 'site-images/product/' . $fileNmae;
                 $data['image_thumb'] = 'site-images/product/_' . $fileNmae;
-                $data['pcID'] = $previd;
+                $data['pcID'] = $subid;
                 $id = DB::table('product')->insertGetId($data);
                 for ($i = 0; $i <= 1; $i++) {
                     DB::table('product_lang')->insert(['PdID' => $id]);
                 }
             }
         }
-        return view('layout', ['main' => 'product_list', 'previd' => $previd, 'query' => $query]);
+        return view('layout', ['main' => 'product_list', 'subid' => $subid, 'previd' => $previd, 'query' => $query]);
     }
 
-    public function product_edit(Request $request, $id, $previd)
+    public function product_edit(Request $request, $id, $subid, $previd)
     {
         $lang = App::make('App\LangModel')->getLang();
         $query = App::make('App\ProductModel')->getProductByPdID($id);
@@ -304,12 +363,12 @@ class ProductController extends Controller
                     DB::table('product_lang')->where('PdlID', $lrow['PdlID'])->update($lrow);
                 }
             }
-            return redirect('/product/product_list/' . $previd);
+            return redirect('/product/product_list/' . $subid.'/'.$previd);
         }
-        return view('layout', ['main' => 'product_edit', 'lang' => $lang, 'query' => $query, 'previd' => $previd]);
+        return view('layout', ['main' => 'product_edit', 'lang' => $lang, 'query' => $query, 'subid' => $subid, 'previd' => $previd]);
     }
 
-    public function product_delete($id, $previd)
+    public function product_delete($id, $subid, $previd)
     {
         $query = App::make('App\ProductModel')->getProductByPdID($id);
         if ($query) {
@@ -322,7 +381,7 @@ class ProductController extends Controller
             DB::table('product')->where('PdID', $id)->delete();
             DB::table('product_lang')->where('PdID', $id)->delete();
         }
-        return redirect('/product/product_list/' . $previd);
+        return redirect('/product/product_list/' . $subid.'/'.$previd);
     }
 
     public function product_star(Request $request)
