@@ -53,32 +53,32 @@
                 <a href="" data-ma-action="submenu-toggle"><i class="zmdi zmdi-home"></i>首頁</a>
                 <ul>
                     <li {{($segment=='home_banner')?'class=active':''}}><a href="/home/home_banner">Banner管理</a></li>
-                    <li {{($segment=='home_seo')?'class=active':''}}><a href="/home/home_seo">首頁SEO</a></li>
+                    {{--<li {{($segment=='home_seo')?'class=active':''}}><a href="/home/home_seo">首頁SEO</a></li>--}}
                 </ul>
             </li>
             <li class="sub-menu {{strpos($url,'about')?'active':''}}">
                 <a href="" data-ma-action="submenu-toggle"><i class="zmdi zmdi-label"></i>關於</a>
                 <ul>
                     <li {{($segment=='about_research_category')?'class=active':''}}><a href="/about/about_research_category">研發創新</a></li>
-                    <li {{($segment=='about_research_seo')?'class=active':''}}><a href="/about/about_research_seo">研發創新SEO</a></li>
+                    {{--<li {{($segment=='about_research_seo')?'class=active':''}}><a href="/about/about_research_seo">研發創新SEO</a></li>--}}
                 </ul>
             </li>
             <li class="sub-menu {{strpos($url,'product')?'active':''}}">
                 <a href="" data-ma-action="submenu-toggle"><i class="zmdi zmdi-view-comfy"></i>產品</a>
                 <ul>
                     <li {{($url=='/product')?'class=active':''}}><a href="/product">產品管理</a></li>
-                    <li {{($segment=='product_seo')?'class=active':''}}><a href="/product/product_seo">產品SEO</a></li>
+                    {{--<li {{($segment=='product_seo')?'class=active':''}}><a href="/product/product_seo">產品SEO</a></li>--}}
                     <li {{($segment=='product_application')?'class=active':''}}><a href="/product/product_application">Application</a></li>
-                    <li {{($segment=='product_application_seo')?'class=active':''}}><a href="/product/product_application_seo">Application SEO</a></li>
+                    {{--<li {{($segment=='product_application_seo')?'class=active':''}}><a href="/product/product_application_seo">Application SEO</a></li>--}}
                     <li {{($segment=='product_star')?'class=active':''}}><a href="/product/product_star">明星商品</a></li>
-                    <li {{($segment=='product_star_seo')?'class=active':''}}><a href="/product/product_star_seo">明星商品SEO</a></li>
+                    {{--<li {{($segment=='product_star_seo')?'class=active':''}}><a href="/product/product_star_seo">明星商品SEO</a></li>--}}
                 </ul>
             </li>
             <li class="sub-menu {{strpos($url,'news')?'active':''}}">
                 <a href="" data-ma-action="submenu-toggle"><i class="zmdi zmdi-comment-alt-text"></i>最新消息</a>
                 <ul>
                     <li {{($url=='/news')?'class=active':''}}><a href="/news">消息管理</a></li>
-                    <li {{($segment=='news_seo')?'class=active':''}}><a href="/news/news_seo">消息SEO</a></li>
+                    {{--<li {{($segment=='news_seo')?'class=active':''}}><a href="/news/news_seo">消息SEO</a></li>--}}
                 </ul>
             </li>
             <li>

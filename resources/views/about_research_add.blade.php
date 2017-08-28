@@ -37,6 +37,15 @@
                             </div>
                         </div>
                     </div>
+
+                    <p class="c-black f-500 m-b-20 m-t-20 ">說明</p>
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <textarea type="text" cols="125" rows="9" placeholder="請輸入說明"
+                                      name="langs[{{$lrow->Id}}][intro]" required></textarea>
+
+                        </div>
+                    </div>
                 </div>
                 @endforeach
                 <?php echo csrf_field(); ?>

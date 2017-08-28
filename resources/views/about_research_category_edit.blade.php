@@ -2,12 +2,12 @@
     <div class="card-body card-padding">
         <div role="tabpanel">
             <ul class="tab-nav" role="tablist">
-                <li class="active"><a href="#home11" aria-controls="home11" role="tab" data-toggle="tab">商品資訊</a></li>
+                <li class="active"><a href="#home11" aria-controls="home11" role="tab" data-toggle="tab">分類資訊</a></li>
                 @foreach ($lang as $lrow)
                 <li><a href="#profile{{$lrow->Id}}" aria-controls="profile{{$lrow->Id}}" role="tab" data-toggle="tab">{{$lrow->lang}}</a></li>
                 @endforeach
             </ul>
-            <form action="/about/about_research_edit/{{$id}}/{{$previd}}" method="post" enctype="multipart/form-data">
+            <form action="/about/about_research_category_edit/{{$query->ArcID}}" method="post" enctype="multipart/form-data">
 
             <div class="tab-content">
                 <div role="tabpanel" class="tab-pane active" id="home11">
@@ -29,7 +29,7 @@
 
                 </div>
                 @foreach ($lang as $k=> $lrow)
-                <input type="hidden" class="form-control input-lg" name="langs[{{$lrow->Id}}][ArlID]"  value="{{$query->langs[$k]->ArlID or ''}}">
+                <input type="hidden" class="form-control input-lg" name="langs[{{$lrow->Id}}][ArclID]"  value="{{$query->langs[$k]->ArclID or ''}}">
                 <div role="tabpanel" class="tab-pane" id="profile{{$lrow->Id}}">
                     <p class="c-black f-500 m-b-20 m-t-20">標題</p>
                     <div class="row">
@@ -40,19 +40,11 @@
                             </div>
                         </div>
                     </div>
-                    <p class="c-black f-500 m-b-20 m-t-20 ">說明</p>
-                    <div class="row">
-                        <div class="form-group col-sm-12">
-                            <textarea type="text" cols="125" rows="9" placeholder="請輸入說明"
-                                      name="langs[{{$lrow->Id}}][intro]" required>{{$query->langs[$k]->intro or ''}}</textarea>
-
-                        </div>
-                    </div>
                 </div>
                 @endforeach
                 <?php echo csrf_field(); ?>
                 <button class="btn btn-primary btn-lg waves-effect">修改</button>
-                <a href="/about/about_research/{{$previd}}" class="btn btn-success btn-lg waves-effect">返回</a>
+                <a href="/about/about_research_category" class="btn btn-success btn-lg waves-effect">返回</a>
             </div>
             </form>
 

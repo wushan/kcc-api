@@ -11,7 +11,7 @@
                 <div class="tab-content">
                     <input type="hidden" class="form-control input-lg" maxlength="30" name="item" value="news">
                     @foreach ($lang as $k=> $lrow)
-                        <input type="hidden" class="form-control input-lg" name="langs[{{$lrow->Id}}][PdlID]"  value="{{$query->langs[$k]->PdlID or ''}}">
+                        <input type="hidden" class="form-control input-lg" name="langs[{{$lrow->Id}}][PdlID]" value="{{$query->langs[$k]->PdlID or ''}}">
 
                         <div role="tabpanel" class="tab-pane" id="profile{{$lrow->Id}}">
 
@@ -24,13 +24,11 @@
                                 </div>
                             </div>
 
-
-                            <p class="c-black f-500 m-b-20 m-t-20">說明</p>
+                            <p class="c-black f-500 m-b-20 m-t-20 ">說明</p>
                             <div class="row">
-                                <div class="form-group">
-                                    <div class="fg-line">
-                                        <input type="text" class="form-control input-lg" maxlength="50" placeholder="請輸入說明" name="langs[{{$lrow->Id}}][intro]" value="{{$query->langs[$k]->intro or ''}}">
-                                    </div>
+                                <div class="form-group col-sm-12">
+                                    <textarea type="text" cols="125" rows="9" placeholder="請輸入說明" name="langs[{{$lrow->Id}}][intro]" required>{{$query->langs[$k]->intro or ''}}</textarea>
+
                                 </div>
                             </div>
 

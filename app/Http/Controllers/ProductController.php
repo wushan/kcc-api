@@ -274,9 +274,18 @@ class ProductController extends Controller
         $post = $request->all();
 
         if ($post) {
+            if (Input::file('file')) {
+                $path = public_path() . '/site-images/product_sub_category';
+                \File::makeDirectory($path, $mode = 0777, true, true);
+                $extension = Input::file('file')->getClientOriginalExtension();
+                $fileNmae = uniqid() . '.' . $extension;
+                Input::file('file')->move($path, $fileNmae);
+                $data['file'] = 'site-images/product_sub_category/' . $fileNmae;
+                $data['file_name'] = Input::file('file')->getClientOriginalName();
+            }
             unset($post['_token']);
-            $date['pcID']=$previd;
-            $id =DB::table('product_sub_category')->insertGetId($date);
+            $data['pcID']=$previd;
+            $id =DB::table('product_sub_category')->insertGetId($data);
             $postlang = $post['langs'];
             if ($postlang) {
                 foreach ($postlang as $k => $lrow) {
@@ -297,6 +306,19 @@ class ProductController extends Controller
         $post = $request->all();
 
         if ($post) {
+            if (Input::file('file')) {
+                $path = public_path() . '/site-images/product_sub_category';
+                \File::makeDirectory($path, $mode = 0777, true, true);
+                $extension = Input::file('file')->getClientOriginalExtension();
+                $fileNmae = uniqid() . '.' . $extension;
+                if ($query->file && file_exists($query->file)) {
+                    unlink($query->file);
+                }
+                Input::file('file')->move($path, $fileNmae);
+                $data['file'] = 'site-images/product_sub_category/' . $fileNmae;
+                $data['file_name'] = Input::file('file')->getClientOriginalName();
+                DB::table('product_sub_category')->where('PscID', $id)->update($data);
+            }
             unset($post['_token']);
             $postLangs = $post['langs'];
             if ($postLangs) {
@@ -314,6 +336,9 @@ class ProductController extends Controller
     {
         $query = App::make('App\ProductModel')->getProductSubCategorybyPscID($id);
         if ($query) {
+            if ($query->file && file_exists($query->file)) {
+                unlink($query->file);
+            }
             DB::table('product_sub_category')->where('PscID', $id)->delete();
             DB::table('product_sub_category_lang')->where('PscID', $id)->delete();
         }

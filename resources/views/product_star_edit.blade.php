@@ -15,12 +15,22 @@
 
                         <div role="tabpanel" class="tab-pane" id="profile{{$lrow->Id}}">
 
-                            <p class="c-black f-500 m-b-20 m-t-20">說明</p>
+                            <p class="c-black f-500 m-b-20 m-t-20">標題</p>
                             <div class="row">
-                                <div class="form-group">
-                                    <div class="fg-line">
-                                        <input type="text" class="form-control input-lg" maxlength="50" placeholder="請輸入說明" name="langs[{{$lrow->Id}}][intro]" value="{{$star->langs[$k]->intro or ''}}">
+                                <div class="form-group col-sm-4">
+                                    <div class="fg-line ">
+                                        <input type="text" class="form-control input-lg" maxlength="30" placeholder="請輸入標題"
+                                               name="langs[{{$lrow->Id}}][title]" value="{{$star->langs[$k]->title or ''}}" required>
                                     </div>
+                                </div>
+                            </div>
+
+                            <p class="c-black f-500 m-b-20 m-t-20 ">說明</p>
+                            <div class="row">
+                                <div class="form-group col-sm-12">
+                            <textarea type="text" cols="125" rows="9" placeholder="請輸入說明"
+                                      name="langs[{{$lrow->Id}}][intro]" required>{{$star->langs[$k]->intro or ''}}</textarea>
+
                                 </div>
                             </div>
 

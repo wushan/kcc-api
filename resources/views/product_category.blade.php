@@ -6,14 +6,15 @@
 <div class="container">
             <div class="card">
                 <div class="card-header">
-                    <a href="/product/product_category_add" class="btn btn-primary btn-lg waves-effect">新增產品分類</a>
+                    {{--<a href="/product/product_category_add" class="btn btn-primary btn-lg waves-effect">新增產品分類</a>--}}
                 </div>
 
                 <div class="table-responsive">
                     <table id="data-table-basic" class="table table-striped table-bordered">
                         <thead>
                         <tr>
-                            <th width="30%">圖片</th>
+                            <th>圖片</th>
+                            <th>Slug</th>
                             <th>分類名稱</th>
                             <th>分類說明</th>
                             <th>檔案</th>
@@ -23,7 +24,8 @@
                         <tbody>
                         @foreach ($query as $row)
                             <tr>
-                                <td width="30%"><img src="{{$row->image}}"></td>
+                                <td width="25%"><img src="{{$row->image}}"></td>
+                                <td>{{$row->slug}}</td>
                                 <td>{{$row->langs[0]->title}}</td>
                                 <td>{{$row->langs[0]->intro}}</td>
                                 <td><a target="_blank" href="/{{$row->file}}">{{$row->file_name}}</a></td>

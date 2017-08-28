@@ -31,6 +31,7 @@ Route::group(['prefix' => 'home'], function () {
 
 Route::group(['prefix' => 'about'], function () {
     Route::any('/about_research_category', 'AboutController@about_research_category');
+    Route::any('/about_research_category_edit/{id}', 'AboutController@about_research_category_edit');
     Route::any('/about_research/{id}', 'AboutController@about_research');
     Route::any('/about_research_add/{id}', 'AboutController@about_research_add');
     Route::any('/about_research_edit/{id}/{previd}', 'AboutController@about_research_edit');

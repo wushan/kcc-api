@@ -31,6 +31,45 @@ class AboutController extends Controller
         return view('layout', ['main' => 'about_research_category', 'query' => $query]);
     }
 
+    public function about_research_category_edit(Request $request,$id)
+    {
+        $lang = App::make('App\LangModel')->getLang();
+        $query = App::make('App\AboutModel')->getAboutResearchCategoryByArcID($id);
+
+        $post = $request->all();
+
+        if ($post) {
+            if (Input::file('image')) {
+                $path = public_path() . '/site-images/about_research_category';
+                \File::makeDirectory($path, $mode = 0777, true, true);
+                $extension = Input::file('image')->getClientOriginalExtension();
+                $fileNmae = uniqid() . '.' . $extension;
+                $width=getimagesize(Input::file('image'))[0];
+                Input::file('image')->move($path, $fileNmae);
+                if($width>1600){
+                    Image::make($path . '/' . $fileNmae)->resize(1600, null,function ($constraint) { $constraint->aspectRatio();})->save($path . '/' . $fileNmae);
+                }
+                $data['image'] = 'site-images/about_research_category/' . $fileNmae;
+                if ($query->image && file_exists($query->image)) {
+                    unlink($query->image);
+                }
+                DB::table('about_research_category')
+                    ->where('ArcID', $id)
+                    ->update($data);
+            }
+            unset($post['_token']);
+            $lang = $post['langs'];
+            if ($lang) {
+                foreach ($lang as $k => $lrow) {
+                    DB::table('about_research_category_lang')->where('ArclID', $lrow['ArclID'])->update($lrow);
+                }
+            }
+            return redirect('/about/about_research_category');
+        }
+
+        return view('layout', ['main' => 'about_research_category_edit', 'query' => $query, 'lang' => $lang]);
+    }
+
     public function about_research($id)
     {
         $query = App::make('App\AboutModel')->getAboutResearchByArcID($id);

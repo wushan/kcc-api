@@ -21,9 +21,10 @@
                         <tbody>
                         @foreach ($query as $row)
                             <tr>
-                                <td width="30%"><img src="{{$row->image}}"></td>
+                                <td width="30%"><img src="/{{$row->image}}"></td>
                                 <td>{{$row->langs[0]->title}}</td>
                                 <td width="12%">
+                                    <a href="/about/about_research_category_edit/{{$row->ArcID}}" class="btn btn-success"><i class="zmdi zmdi-edit"></i></a>
                                     <a href="/about/about_research/{{$row->ArcID}}" class="btn bgm-deeporange "><i class="zmdi zmdi-collection-folder-image"></i></a>
                                 </td>
                             </tr>

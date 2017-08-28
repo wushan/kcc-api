@@ -23,6 +23,7 @@
                 <tr>
                     <th>排序</th>
                     <th width="20%">圖片</th>
+                    <th>標題</th>
                     <th>說明</th>
                     <th>選項</th>
                 </tr>
@@ -36,6 +37,7 @@
                     </div>
                 </td>
                 <td width="30%"><img src="/{{$srow->image}}"></td>
+                    <td style="vertical-align: middle">{{$srow->langs[0]->title}}</td>
                 <td style="vertical-align: middle">{{$srow->langs[0]->intro}}</td>
                 <td width="15%" style="vertical-align: middle">
                 <a href="/product/product_star_edit/{{$srow->PstarID}}" class="btn btn-success"><i class="zmdi zmdi-edit"></i></a>

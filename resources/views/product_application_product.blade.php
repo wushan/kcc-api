@@ -21,6 +21,7 @@
                             <th>排序</th>
                             <th width="30%">圖片</th>
                             <th>標題</th>
+                            <th>說明</th>
                             <th>選項</th>
                         </tr>
                         </thead>
@@ -34,6 +35,7 @@
                                 </td>
                                 <td width="30%"><img src="/{{$row->image}}"></td>
                                 <td>{{$row->langs[0]->title}}</td>
+                                <td>{{$row->langs[0]->intro}}</td>
                                 <td width="12%">
                                     <a href="/product/product_application_product_edit/{{$row->PapID}}/{{$id}}" class="btn btn-success"><i class="zmdi zmdi-edit"></i></a>
                                     <a href="/product/product_application_product_delete/{{$row->PapID}}/{{$id}}" onclick="return confirm('確定要刪除?');" class="btn btn-danger sa-warning"><i class="zmdi zmdi-delete"></i></a>

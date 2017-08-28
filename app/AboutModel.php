@@ -34,6 +34,16 @@ class AboutModel extends Model
         return $query;
     }
 
+    public function getAboutResearchCategoryByArcID($id)
+    {
+        $query = DB::table('about_research_category')->where('ArcID', $id)->first();
+        if ($query) {
+                $langs = $this->getAboutResearchCategoryLang($query->ArcID);
+                $query->langs = $langs;
+        }
+        return $query;
+    }
+
     public function getAboutResearchByArcID($id)
     {
         $query = DB::table('about_research')->where('arcID', $id)->get();

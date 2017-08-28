@@ -41,6 +41,24 @@
                         </div>
                     </div>
 
+                    {{--<p class="c-black f-500 m-b-20">SLUG</p>--}}
+                    {{--<div class="row">--}}
+                        {{--<div class="form-group  col-sm-4">--}}
+                            {{--<div class="fg-line">--}}
+                                {{--<div class="select">--}}
+                                    {{--<select name="slug" class="form-control">--}}
+                                        {{--<option value="0">cc</option>--}}
+                                        {{--<option value="1">cf</option>--}}
+                                        {{--<option value="2">vf</option>--}}
+                                        {{--<option value="3">mf</option>--}}
+                                        {{--<option value="4">slider</option>--}}
+                                        {{--<option value="5">puller</option>--}}
+                                    {{--</select>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+
                     <p class="c-black f-500 m-b-20 m-t-20">額外介紹區塊選擇</p>
                     <div class="row">
                         <div class="form-group col-sm-6">
@@ -81,13 +99,12 @@
                         </div>
                     </div>
 
-                    <p class="c-black f-500 m-b-20 m-t-20">分類說明</p>
+                    <p class="c-black f-500 m-b-20 m-t-20 ">分類說明</p>
                     <div class="row">
-                        <div class="form-group col-sm-4">
-                            <div class="fg-line ">
-                                <input type="text" class="form-control input-lg" maxlength="255" placeholder="請輸入分類說明"
-                                       name="langs[{{$lrow->Id}}][intro]" value="{{$query->langs[$k]->intro}}" required>
-                            </div>
+                        <div class="form-group col-sm-12">
+                            <textarea type="text"  cols="125" rows="9" placeholder="請輸入分類說明"
+                                      name="langs[{{$lrow->Id}}][intro]"  required>{{$query->langs[$k]->intro}}</textarea>
+
                         </div>
                     </div>
                     <?php $extra=json_decode($query->langs[$k]->extra_intro)?>

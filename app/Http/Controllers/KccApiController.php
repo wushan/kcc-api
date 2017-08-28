@@ -46,7 +46,8 @@ class KccApiController
                         foreach ($products as $i => $prow) {
                             $data['research'][$prow->arcID]['products'][$i]['image'] = $prow->image;
                             $data['research'][$prow->arcID]['products'][$i]['image_thumb'] = $prow->image_thumb;
-                            $data['research'][$prow->arcID]['products'][$i]['langs'] = $prow->langs[($post['lang'] - 1)]->title;
+                            $data['research'][$prow->arcID]['products'][$i]['title'] = $prow->langs[($post['lang'] - 1)]->title;
+                            $data['research'][$prow->arcID]['products'][$i]['intro'] = $prow->langs[($post['lang'] - 1)]->intro;
                         }
                     }
 
@@ -71,22 +72,21 @@ class KccApiController
         if ($post) {
             if ($product) {
                 foreach ($product as $k=> $row) {
-                    $data['product'][$k]['image']=$row->image;
-                    $data['product'][$k]['image_thumb']=$row->image_thumb;
-                    $data['product'][$k]['file']=$row->file;
-                    $data['product'][$k]['title']=$row->langs[($post['lang'] - 1)]->title;
-                    $data['product'][$k]['intro']=$row->langs[($post['lang'] - 1)]->intro;
-                    $data['product'][$k]['extra_intro']=json_decode($row->langs[($post['lang'] - 1)]->extra_intro,true);
-                    $data['product'][$k]['products']='';
+                    $data['product'][$row->slug]['image']=$row->image;
+                    $data['product'][$row->slug]['image_thumb']=$row->image_thumb;
+                    $data['product'][$row->slug]['file']=$row->file;
+                    $data['product'][$row->slug]['title']=$row->langs[($post['lang'] - 1)]->title;
+                    $data['product'][$row->slug]['intro']=$row->langs[($post['lang'] - 1)]->intro;
+                    $data['product'][$row->slug]['extra_intro']=json_decode($row->langs[($post['lang'] - 1)]->extra_intro,true);
                     if($sub_category=$row->sub_category){
                         foreach ($sub_category as $s =>$srow){
-                            $data['product'][$k]['sub_category'][$s]['title'] = $srow->langs[($post['lang'] - 1)]->title;
+                            $data['product'][$row->slug]['sub_category'][$s]['title'] = $srow->langs[($post['lang'] - 1)]->title;
                             if($product=$srow->products){
                                 foreach ($product as $p =>$prow){
-                                    $data['product'][$k]['sub_category'][$s]['products'][$p]['image'] = $prow->image;
-                                    $data['product'][$k]['sub_category'][$s]['products'][$p]['image_thumb'] = $prow->image_thumb;
-                                    $data['product'][$k]['sub_category'][$s]['products'][$p]['title'] = $prow->langs[($post['lang'] - 1)]->title;
-                                    $data['product'][$k]['sub_category'][$s]['products'][$p]['intro'] = $prow->langs[($post['lang'] - 1)]->intro;
+                                    $data['product'][$row->slug]['sub_category'][$s]['products'][$p]['image'] = $prow->image;
+                                    $data['product'][$row->slug]['sub_category'][$s]['products'][$p]['image_thumb'] = $prow->image_thumb;
+                                    $data['product'][$row->slug]['sub_category'][$s]['products'][$p]['title'] = $prow->langs[($post['lang'] - 1)]->title;
+                                    $data['product'][$row->slug]['sub_category'][$s]['products'][$p]['intro'] = $prow->langs[($post['lang'] - 1)]->intro;
                                 }
                             }
                         }
@@ -120,6 +120,7 @@ class KccApiController
                             $data['application'][$k]['products'][$p]['image'] = $prow->image;
                             $data['application'][$k]['products'][$p]['image_thumb'] = $prow->image_thumb;
                             $data['application'][$k]['products'][$p]['title'] = $prow->langs[($post['lang'] - 1)]->title;
+                            $data['application'][$k]['products'][$p]['intro'] = $prow->langs[($post['lang'] - 1)]->intro;
                         }
                     }
                 };
@@ -146,6 +147,7 @@ class KccApiController
                     $data['products'][$k]['order'] = $row->order;
                     $data['products'][$k]['image'] = $row->image;
                     $data['products'][$k]['image_thumb'] = $row->image_thumb;
+                    $data['products'][$k]['title'] = $row->langs[($post['lang'] - 1)]->title;
                     $data['products'][$k]['intro'] = $row->langs[($post['lang'] - 1)]->intro;
                 }
             }
