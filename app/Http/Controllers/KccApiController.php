@@ -17,7 +17,7 @@ class KccApiController
 
         if ($post) {
             if ($banner) {
-                $data['image'] = $banner[rand(0, (count($banner) - 1))]->image;
+                $data['image'] = $banner;
             }
             if ($seo) {
                 $data['keyword'] = $seo->langs[($post['lang'] - 1)]->keyword;
@@ -81,6 +81,7 @@ class KccApiController
                     if($sub_category=$row->sub_category){
                         foreach ($sub_category as $s =>$srow){
                             $data['product'][$row->slug]['sub_category'][$s]['title'] = $srow->langs[($post['lang'] - 1)]->title;
+                            $data['product'][$row->slug]['sub_category'][$s]['file'] = $srow->file;
                             if($product=$srow->products){
                                 foreach ($product as $p =>$prow){
                                     $data['product'][$row->slug]['sub_category'][$s]['products'][$p]['image'] = $prow->image;
@@ -98,7 +99,6 @@ class KccApiController
                 $data['description'] = $seo->langs[($post['lang'] - 1)]->description;
             }
         }
-
         return json_encode($data, JSON_UNESCAPED_SLASHES);
     }
 

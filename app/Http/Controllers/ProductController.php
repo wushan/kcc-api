@@ -261,9 +261,18 @@ class ProductController extends Controller
         return redirect('/product');
     }
 
-    public function product_sub_category($previd)
+    public function product_sub_category(Request $request,$previd)
     {
         $query = App::make('App\ProductModel')->getProductSubCategorybyPcID($previd);
+        $post = $request->all();
+
+        if (isset($post['order'])) {
+            unset($post['_token']);
+            foreach ($post['order'] as $k => $row) {
+                DB::table('product_sub_category')->where('PscID', $k)->update(['order' => $row]);
+            }
+            return redirect('/product/product_sub_category/'.$previd);
+        }
 
         return view('layout', ['main' => 'product_sub_category', 'query' => $query,'previd'=>$previd]);
     }
@@ -271,6 +280,7 @@ class ProductController extends Controller
     public function product_sub_category_add(Request $request ,$previd)
     {
         $lang = App::make('App\LangModel')->getLang();
+        $order = App::make('App\ProductModel')->getProductSubCategoryOrder($previd);
         $post = $request->all();
 
         if ($post) {
@@ -285,6 +295,7 @@ class ProductController extends Controller
             }
             unset($post['_token']);
             $data['pcID']=$previd;
+            $data['order'] = $order + 1;
             $id =DB::table('product_sub_category')->insertGetId($data);
             $postlang = $post['langs'];
             if ($postlang) {

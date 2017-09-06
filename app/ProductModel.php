@@ -49,6 +49,13 @@ class ProductModel extends Model
         return $query;
     }
 
+    public function getProductSubCategoryOrder($id)
+    {
+        $query = DB::table('product_sub_category')->where('pcID', $id)->max('order');
+
+        return $query;
+    }
+
     public function getProductStarOrder()
     {
         $query = DB::table('product_star')->max('order');
@@ -58,7 +65,7 @@ class ProductModel extends Model
 
     public function getProductSubCategorybyPcID($id)
     {
-        $query = DB::table('product_sub_category')->where('pcID', $id)->get();
+        $query = DB::table('product_sub_category')->where('pcID', $id)->orderBy('order', 'asc')->get();
         if ($query) {
             foreach ($query as $row) {
                 $langs = $this->getProductSubCategorylangs($row->PscID);
