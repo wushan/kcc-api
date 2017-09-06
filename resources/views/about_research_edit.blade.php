@@ -25,6 +25,7 @@
                             <a href="#" class="btn btn-danger fileinput-exists"
                                data-dismiss="fileinput">Remove</a>
                         </div>
+                        <small>建議圖片尺寸1024 * 768  或 1600*900 </small>
                     </div>
 
                 </div>

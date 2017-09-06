@@ -25,6 +25,7 @@
                             <a href="#" class="btn btn-danger fileinput-exists"
                                data-dismiss="fileinput">Remove</a>
                         </div>
+                        <small>建議圖片尺寸800 * 600</small>
                     </div>
 
                     <p class="c-black f-500 m-b-20 m-t-20">PDF</p>

@@ -9,6 +9,7 @@
             <a href="/product/product_sub_category/{{$previd}}" class="btn btn-success btn-lg waves-effect">返回</a>
         </div>
         <div class="card-header">
+            <small>建議圖片尺寸960 * 960 ( 正方形透明圖 )</small>
             <form class="dropzone dz-clickable" id="dropzone-upload">
                 <?php echo csrf_field(); ?>
                 <div class="dz-default dz-message">

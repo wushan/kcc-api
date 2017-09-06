@@ -11,7 +11,7 @@
 
             <div class="tab-content">
                 <div role="tabpanel" class="tab-pane active" id="home11">
-                    <p class="f-500 c-black m-b-20">圖片</p>
+                    <p class="f-500 c-black m-b-20">大圖片</p>
                     <div class="fileinput fileinput-new" data-provides="fileinput">
                         <div class="fileinput-preview thumbnail" data-trigger="fileinput"></div>
                         <div>
@@ -23,8 +23,24 @@
                             <a href="#" class="btn btn-danger fileinput-exists"
                                data-dismiss="fileinput">Remove</a>
                         </div>
+                        <small>建議圖片尺寸960 * 960</small>
                     </div>
 
+                    <p></p>
+                    <p class="f-500 c-black m-b-20">小圖片</p>
+                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                        <div class="fileinput-preview thumbnail" data-trigger="fileinput"></div>
+                        <div>
+                  <span class="btn btn-info btn-file">
+                      <span class="fileinput-new">Select image</span>
+                      <span class="fileinput-exists">Change</span>
+                      <input type="file" name="image_thumb">
+                  </span>
+                            <a href="#" class="btn btn-danger fileinput-exists"
+                               data-dismiss="fileinput">Remove</a>
+                        </div>
+                        <small>建議圖片尺寸320 * 320</small>
+                    </div>
                 </div>
                 @foreach ($lang as $lrow)
                 <div role="tabpanel" class="tab-pane" id="profile{{$lrow->Id}}">

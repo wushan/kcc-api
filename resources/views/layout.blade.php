@@ -24,7 +24,7 @@
 
     <script src="/css/vendors/bower_components/jquery/dist/jquery.min.js"></script>
     <script src="/css/vendors/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.2/axios.js"></script>
+    {{--<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.2/axios.js"></script>--}}
 </head>
 
 <body>

@@ -13,7 +13,7 @@
                     <table id="data-table-basic" class="table table-striped table-bordered">
                         <thead>
                         <tr>
-                            <th width="30%">圖片</th>
+                            {{--<th width="30%">圖片</th>--}}
                             <th>分類名稱</th>
                             <th>選項</th>
                         </tr>
@@ -21,7 +21,7 @@
                         <tbody>
                         @foreach ($query as $row)
                             <tr>
-                                <td width="30%"><img src="/{{$row->image}}"></td>
+{{--                                <td width="30%"><img src="/{{$row->image}}"></td>--}}
                                 <td>{{$row->langs[0]->title}}</td>
                                 <td width="12%">
                                     <a href="/about/about_research_category_edit/{{$row->ArcID}}" class="btn btn-success"><i class="zmdi zmdi-edit"></i></a>

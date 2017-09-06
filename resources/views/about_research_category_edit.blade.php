@@ -2,7 +2,7 @@
     <div class="card-body card-padding">
         <div role="tabpanel">
             <ul class="tab-nav" role="tablist">
-                <li class="active"><a href="#home11" aria-controls="home11" role="tab" data-toggle="tab">分類資訊</a></li>
+                {{--<li class="active"><a href="#home11" aria-controls="home11" role="tab" data-toggle="tab">分類資訊</a></li>--}}
                 @foreach ($lang as $lrow)
                 <li><a href="#profile{{$lrow->Id}}" aria-controls="profile{{$lrow->Id}}" role="tab" data-toggle="tab">{{$lrow->lang}}</a></li>
                 @endforeach
@@ -10,24 +10,24 @@
             <form action="/about/about_research_category_edit/{{$query->ArcID}}" method="post" enctype="multipart/form-data">
 
             <div class="tab-content">
-                <div role="tabpanel" class="tab-pane active" id="home11">
-                    <p class="f-500 c-black m-b-20">圖片</p>
-                    <div class="fileinput fileinput-new" data-provides="fileinput">
-                        <div class="fileinput-preview thumbnail" data-trigger="fileinput">
-                            <img src="/{{$query->image}}">
-                        </div>
-                        <div>
-                  <span class="btn btn-info btn-file">
-                      <span class="fileinput-new">Select image</span>
-                      <span class="fileinput-exists">Change</span>
-                      <input type="file" name="image">
-                  </span>
-                            <a href="#" class="btn btn-danger fileinput-exists"
-                               data-dismiss="fileinput">Remove</a>
-                        </div>
-                    </div>
+                {{--<div role="tabpanel" class="tab-pane active" id="home11">--}}
+                    {{--<p class="f-500 c-black m-b-20">圖片</p>--}}
+                    {{--<div class="fileinput fileinput-new" data-provides="fileinput">--}}
+                        {{--<div class="fileinput-preview thumbnail" data-trigger="fileinput">--}}
+                            {{--<img src="/{{$query->image}}">--}}
+                        {{--</div>--}}
+                        {{--<div>--}}
+                  {{--<span class="btn btn-info btn-file">--}}
+                      {{--<span class="fileinput-new">Select image</span>--}}
+                      {{--<span class="fileinput-exists">Change</span>--}}
+                      {{--<input type="file" name="image">--}}
+                  {{--</span>--}}
+                            {{--<a href="#" class="btn btn-danger fileinput-exists"--}}
+                               {{--data-dismiss="fileinput">Remove</a>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
 
-                </div>
+                {{--</div>--}}
                 @foreach ($lang as $k=> $lrow)
                 <input type="hidden" class="form-control input-lg" name="langs[{{$lrow->Id}}][ArclID]"  value="{{$query->langs[$k]->ArclID or ''}}">
                 <div role="tabpanel" class="tab-pane" id="profile{{$lrow->Id}}">
@@ -54,3 +54,9 @@
 </div>
 
 <script src="/css/vendors/fileinput/fileinput.min.js"></script>
+
+<script>
+    var hash = window.location.hash;
+    $('ul.tab-nav li').eq(hash.substr(1)).addClass('active');
+    $('.tab-pane').eq(hash.substr(1)).addClass('active');
+</script>

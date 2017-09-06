@@ -6,6 +6,7 @@
 <div class="container">
     <div class="card">
         <div class="card-header">
+            <small>建議圖片尺寸1600 * 900</small>
             <form class="dropzone dz-clickable" id="dropzone-upload">
                 <?php echo csrf_field(); ?>
                 <div class="dz-default dz-message">
