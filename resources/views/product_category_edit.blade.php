@@ -109,19 +109,20 @@
                         </div>
                     </div>
                     <?php $extra=json_decode($query->langs[$k]->extra_intro)?>
+                    <?php $image=json_decode($query->langs[$k]->extra_image)?>
                     <p class="c-black f-500 m-b-20 m-t-20 typ-1">額外介紹</p>
                     <div class="row typ-1">
                         <div class="form-group col-sm-12">
                             <p class="f-500 c-black m-b-20">圖片區塊</p>
                             <div class="fileinput fileinput-new" data-provides="fileinput">
                                 <div class="fileinput-preview thumbnail" data-trigger="fileinput">
-                                    <img src="/{{($query->type==1 && $extra)?$extra->image[0] :''}}">
+                                    <img src="/{{($query->type==1 && $image)?$image->image[0] :''}}">
                                 </div>
                                 <div>
                                  <span class="btn btn-info btn-file">
                                      <span class="fileinput-new">Select image</span>
                                      <span class="fileinput-exists">Change</span>
-                                     <input class="typ-1" type="file" name="langs[{{$lrow->Id}}][extra_intro][Limage]" disabled >
+                                     <input class="typ-1" type="file" name="langs[{{$lrow->Id}}][extra_image][Limage]" disabled >
                                  </span>
                                     <a href="#" class="btn btn-danger fileinput-exists"
                                        data-dismiss="fileinput">Remove</a>
@@ -129,13 +130,13 @@
                             </div>
                             <div class="fileinput fileinput-new" data-provides="fileinput">
                                 <div class="fileinput-preview thumbnail" data-trigger="fileinput">
-                                    <img src="/{{($query->type==1 && $extra)?$extra->image[1] :''}}">
+                                    <img src="/{{($query->type==1 && $image)?$image->image[1] :''}}">
                                 </div>
                                 <div>
                                  <span class="btn btn-info btn-file">
                                      <span class="fileinput-new">Select image</span>
                                      <span class="fileinput-exists">Change</span>
-                                     <input class="typ-1" type="file" name="langs[{{$lrow->Id}}][extra_intro][Rimage]" disabled >
+                                     <input class="typ-1" type="file" name="langs[{{$lrow->Id}}][extra_image][Rimage]" disabled >
                                  </span>
                                     <a href="#" class="btn btn-danger fileinput-exists"
                                        data-dismiss="fileinput">Remove</a>
@@ -149,13 +150,13 @@
                         <div class="form-group col-sm-12">
                             <div class="fileinput fileinput-new" data-provides="fileinput">
                                 <div class="fileinput-preview thumbnail" data-trigger="fileinput">
-                                    <img src="/{{($query->type==2)?$extra->image :''}}">
+                                    <img src="/{{($query->type==2 && $image)?$image->image :''}}">
                                 </div>
                                 <div>
                                  <span class="btn btn-info btn-file">
                                      <span class="fileinput-new">Select image</span>
                                      <span class="fileinput-exists">Change</span>
-                                     <input class="typ-2" type="file" name="langs[{{$lrow->Id}}][extra_intro][image]" disabled >
+                                     <input class="typ-2" type="file" name="langs[{{$lrow->Id}}][extra_image][image]" disabled >
                                  </span>
                                     <a href="#" class="btn btn-danger fileinput-exists"
                                        data-dismiss="fileinput">Remove</a>

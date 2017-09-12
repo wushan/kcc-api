@@ -15,10 +15,9 @@ class ProductController extends Controller
     public function __construct()
     {
         $this->middleware(function ($request, $next) {
-            if(Session::get('login')==null)
-            {
+            if (Session::get('login') == null) {
                 return redirect('/');
-            }else{
+            } else {
                 return $next($request);
             }
         });
@@ -41,12 +40,16 @@ class ProductController extends Controller
                 \File::makeDirectory($path, $mode = 0777, true, true);
                 $extension = Input::file('image')->getClientOriginalExtension();
                 $fileNmae = uniqid() . '.' . $extension;
-                $width=getimagesize(Input::file('image'))[0];
+                $width = getimagesize(Input::file('image'))[0];
                 Input::file('image')->move($path, $fileNmae);
-                if($width>1600){
-                    Image::make($path . '/' . $fileNmae)->resize(1600, null,function ($constraint) { $constraint->aspectRatio();})->save($path . '/' . $fileNmae);
+                if ($width > 1600) {
+                    Image::make($path . '/' . $fileNmae)->resize(1600, null, function ($constraint) {
+                        $constraint->aspectRatio();
+                    })->save($path . '/' . $fileNmae);
                 }
-                Image::make($path . '/' . $fileNmae)->resize(320, null,function ($constraint) { $constraint->aspectRatio();})->save($path . '/_' . $fileNmae);
+                Image::make($path . '/' . $fileNmae)->resize(320, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->save($path . '/_' . $fileNmae);
                 $data['image'] = 'site-images/product_category/' . $fileNmae;
                 $data['image_thumb'] = 'site-images/product_category/_' . $fileNmae;
             }
@@ -73,10 +76,12 @@ class ProductController extends Controller
                                 \File::makeDirectory($path, $mode = 0777, true, true);
                                 $extension = $img->getClientOriginalExtension();
                                 $fileNmae = uniqid() . '.' . $extension;
-                                $width=getimagesize($img)[0];
+                                $width = getimagesize($img)[0];
                                 $img->move($path, $fileNmae);
-                                if($width>1600){
-                                    Image::make($path . '/' . $fileNmae)->resize(1600, null,function ($constraint) { $constraint->aspectRatio();})->save($path . '/' . $fileNmae);
+                                if ($width > 1600) {
+                                    Image::make($path . '/' . $fileNmae)->resize(1600, null, function ($constraint) {
+                                        $constraint->aspectRatio();
+                                    })->save($path . '/' . $fileNmae);
                                 }
                                 sleep(1);
                                 $extra_intro['type'] = $post['type'];
@@ -90,10 +95,12 @@ class ProductController extends Controller
                             \File::makeDirectory($path, $mode = 0777, true, true);
                             $extension = $img->getClientOriginalExtension();
                             $fileNmae = uniqid() . '.' . $extension;
-                            $width=getimagesize($img)[0];
+                            $width = getimagesize($img)[0];
                             $img->move($path, $fileNmae);
-                            if($width>1600){
-                                Image::make($path . '/' . $fileNmae)->resize(1600, null,function ($constraint) { $constraint->aspectRatio();})->save($path . '/' . $fileNmae);
+                            if ($width > 1600) {
+                                Image::make($path . '/' . $fileNmae)->resize(1600, null, function ($constraint) {
+                                    $constraint->aspectRatio();
+                                })->save($path . '/' . $fileNmae);
                             }
                             sleep(1);
                             $extra_intro = [
@@ -136,12 +143,16 @@ class ProductController extends Controller
                 if ($query->image_thumb && file_exists($query->image_thumb)) {
                     unlink($query->image_thumb);
                 }
-                $width=getimagesize(Input::file('image'))[0];
+                $width = getimagesize(Input::file('image'))[0];
                 Input::file('image')->move($path, $fileNmae);
-                if($width>800){
-                    Image::make($path . '/' . $fileNmae)->resize(800, null,function ($constraint) { $constraint->aspectRatio();})->save($path . '/' . $fileNmae);
+                if ($width > 800) {
+                    Image::make($path . '/' . $fileNmae)->resize(800, null, function ($constraint) {
+                        $constraint->aspectRatio();
+                    })->save($path . '/' . $fileNmae);
                 }
-                Image::make($path . '/' . $fileNmae)->resize(320, null,function ($constraint) { $constraint->aspectRatio();})->save($path . '/_' . $fileNmae);
+                Image::make($path . '/' . $fileNmae)->resize(320, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->save($path . '/_' . $fileNmae);
                 $data['image'] = 'site-images/product_category/' . $fileNmae;
                 $data['image_thumb'] = 'site-images/product_category/_' . $fileNmae;
             }
@@ -164,10 +175,68 @@ class ProductController extends Controller
             if ($lang) {
                 foreach ($lang as $k => $lrow) {
                     $extra_intro = '';
-                    $oldImg = isset($query->langs[$k - 1]->extra_intro->image) ? json_decode($query->langs[$k - 1]->extra_intro)->image : '';
-                    if (!empty($lrow['extra_intro']) && $post['type'] == 1) {
-                        foreach ($lrow['extra_intro'] as $i => $image) {
-                            if ($img = Input::file('langs')[$k]['extra_intro'][$i]) {
+                    $extra_image = '';
+                    $oldImg = isset(json_decode($query->langs[$k - 1]->extra_image)->image) ? json_decode($query->langs[$k - 1]->extra_image)->image : '';
+                    $Limg = (isset($oldImg[0])) ? $oldImg[0] : '';
+                    $Rimg = (isset($oldImg[1])) ? $oldImg[1] : '';
+                    if($post['type']==0){
+                        $extra_intro['type'] = $post['type'];
+                        $extra_image['image'] = '';
+                    }
+                    if (!empty($lrow['extra_image']) && $post['type'] == 1) {
+                        foreach ($lrow['extra_image'] as $i => $image) {
+                            if (isset($image) && $i == 'Limage') {
+                                if (Input::file('langs')[$k]['extra_image'][$i]) {
+                                    $path = public_path() . '/site-images/product_category';
+                                    \File::makeDirectory($path, $mode = 0777, true, true);
+                                    $extension = $image->getClientOriginalExtension();
+                                    $fileNmae = uniqid() . '.' . $extension;
+//                                    if ($oldImg[$k] && file_exists($oldImg[$k])) {
+//                                        unlink($oldImg[$k]);
+//                                    }
+                                    $width = getimagesize($image)[0];
+                                    $image->move($path, $fileNmae);
+                                    if ($width > 1600) {
+                                        Image::make($path . '/' . $fileNmae)->resize(1600, null, function ($constraint) {
+                                            $constraint->aspectRatio();
+                                        })->save($path . '/' . $fileNmae);
+                                    }
+                                    sleep(1);
+                                    $extra_intro['type'] = $post['type'];
+                                    $Limg = 'site-images/product_category/' . $fileNmae;
+                                    $extra_image['image'][] = $Limg;
+                                }
+                            }
+                            if (isset($image) && $i == 'Rimage') {
+                                if (Input::file('langs')[$k]['extra_image'][$i]) {
+                                    $path = public_path() . '/site-images/product_category';
+                                    \File::makeDirectory($path, $mode = 0777, true, true);
+                                    $extension = $image->getClientOriginalExtension();
+                                    $fileNmae = uniqid() . '.' . $extension;
+//                                    if ($oldImg[$k] && file_exists($oldImg[$k])) {
+//                                        unlink($oldImg[$k]);
+//                                    }
+                                    $width = getimagesize($image)[0];
+                                    $image->move($path, $fileNmae);
+                                    if ($width > 1600) {
+                                        Image::make($path . '/' . $fileNmae)->resize(1600, null, function ($constraint) {
+                                            $constraint->aspectRatio();
+                                        })->save($path . '/' . $fileNmae);
+                                    }
+                                    sleep(1);
+                                    $extra_intro['type'] = $post['type'];
+                                    $Rimg = 'site-images/product_category/' . $fileNmae;
+                                    $extra_image['image'][] = $Rimg;
+                                }
+                            }
+                        }
+                        $extra_image['image'] = [$Limg, $Rimg];
+                    }
+                    if (!empty($lrow['extra_intro']) && $post['type'] == 2) {
+                        $imgpath = '';
+                        $oldImg = isset(json_decode($query->langs[$k - 1]->extra_image)->image) ? json_decode($query->langs[$k - 1]->extra_image)->image : '';
+                        if (isset(Input::file('langs')[$k]['extra_image']['image'])) {
+                            if ($img = Input::file('langs')[$k]['extra_image']['image']) {
                                 $path = public_path() . '/site-images/product_category';
                                 \File::makeDirectory($path, $mode = 0777, true, true);
                                 $extension = $img->getClientOriginalExtension();
@@ -175,47 +244,32 @@ class ProductController extends Controller
                                 if ($oldImg && file_exists($oldImg)) {
                                     unlink($oldImg);
                                 }
-                                $width=getimagesize($img)[0];
+                                $width = getimagesize($img)[0];
                                 $img->move($path, $fileNmae);
-                                if($width>1600){
-                                    Image::make($path . '/' . $fileNmae)->resize(1600, null,function ($constraint) { $constraint->aspectRatio();})->save($path . '/' . $fileNmae);
+                                if ($width > 1600) {
+                                    Image::make($path . '/' . $fileNmae)->resize(1600, null, function ($constraint) {
+                                        $constraint->aspectRatio();
+                                    })->save($path . '/' . $fileNmae);
                                 }
                                 sleep(1);
-                                $extra_intro['type'] = $post['type'];
-                                $extra_intro['image'][] = 'site-images/product_category/' . $fileNmae;
+                                $imgpath = 'site-images/product_category/' . $fileNmae;
                             }
-                        }
-                    }
-                    if (!empty($lrow['extra_intro']) && $post['type'] == 2) {
-                        $imgpath = '';
-                        $oldImg = isset($query->langs[$k - 1]->extra_intro->image) ? json_decode($query->langs[$k - 1]->extra_intro)->image : '';
-                        if ($img = Input::file('langs')[$k]['extra_intro']['image']) {
-                            $path = public_path() . '/site-images/product_category';
-                            \File::makeDirectory($path, $mode = 0777, true, true);
-                            $extension = $img->getClientOriginalExtension();
-                            $fileNmae = uniqid() . '.' . $extension;
-                            if ($oldImg && file_exists($oldImg)) {
-                                unlink($oldImg);
-                            }
-                            $width=getimagesize($img)[0];
-                            $img->move($path, $fileNmae);
-                            if($width>1600){
-                                Image::make($path . '/' . $fileNmae)->resize(1600, null,function ($constraint) { $constraint->aspectRatio();})->save($path . '/' . $fileNmae);
-                            }
-                            sleep(1);
-                            $imgpath = 'site-images/product_category/' . $fileNmae;
                         }
                         $extra_intro = [
                             'type' => $post['type'],
-                            'content' => $lrow['extra_intro']['content'],
-                            'image' => $imgpath
+                            'content' => $lrow['extra_intro']['content']
                         ];
+                        $extra_image['image'] = $imgpath;
                     }
                     if (!empty($lrow['extra_intro']) && $post['type'] == 3) {
                         $extra_intro['type'] = $post['type'];
                         $extra_intro['content'] = $lrow['extra_intro']['content'];
                     }
                     $lang[$k]['extra_intro'] = json_encode($extra_intro);
+                    if (isset($lrow['extra_image'])|| $post['type']==0) {
+                        $lang[$k]['extra_image'] = json_encode($extra_image);
+                    }
+
                 }
                 if ($lang) {
                     foreach ($lang as $k => $lrow) {
@@ -261,7 +315,7 @@ class ProductController extends Controller
         return redirect('/product');
     }
 
-    public function product_sub_category(Request $request,$previd)
+    public function product_sub_category(Request $request, $previd)
     {
         $query = App::make('App\ProductModel')->getProductSubCategorybyPcID($previd);
         $post = $request->all();
@@ -271,13 +325,13 @@ class ProductController extends Controller
             foreach ($post['order'] as $k => $row) {
                 DB::table('product_sub_category')->where('PscID', $k)->update(['order' => $row]);
             }
-            return redirect('/product/product_sub_category/'.$previd);
+            return redirect('/product/product_sub_category/' . $previd);
         }
 
-        return view('layout', ['main' => 'product_sub_category', 'query' => $query,'previd'=>$previd]);
+        return view('layout', ['main' => 'product_sub_category', 'query' => $query, 'previd' => $previd]);
     }
 
-    public function product_sub_category_add(Request $request ,$previd)
+    public function product_sub_category_add(Request $request, $previd)
     {
         $lang = App::make('App\LangModel')->getLang();
         $order = App::make('App\ProductModel')->getProductSubCategoryOrder($previd);
@@ -294,9 +348,9 @@ class ProductController extends Controller
                 $data['file_name'] = Input::file('file')->getClientOriginalName();
             }
             unset($post['_token']);
-            $data['pcID']=$previd;
+            $data['pcID'] = $previd;
             $data['order'] = $order + 1;
-            $id =DB::table('product_sub_category')->insertGetId($data);
+            $id = DB::table('product_sub_category')->insertGetId($data);
             $postlang = $post['langs'];
             if ($postlang) {
                 foreach ($postlang as $k => $lrow) {
@@ -305,7 +359,7 @@ class ProductController extends Controller
                 DB::table('product_sub_category_lang')->insert($postlang);
 
             }
-            return redirect('/product/product_sub_category/'.$previd);
+            return redirect('/product/product_sub_category/' . $previd);
         }
         return view('layout', ['main' => 'product_sub_category_add', 'lang' => $lang, 'previd' => $previd]);
     }
@@ -337,7 +391,7 @@ class ProductController extends Controller
                     DB::table('product_sub_category_lang')->where('PsclID', $lrow['PsclID'])->update($lrow);
                 }
             }
-            return redirect('/product/product_sub_category/'.$previd);
+            return redirect('/product/product_sub_category/' . $previd);
         }
         return view('layout', ['main' => 'product_sub_category_edit', 'lang' => $lang, 'query' => $query, 'previd' => $previd]);
     }
@@ -356,7 +410,7 @@ class ProductController extends Controller
         return redirect('/product/product_sub_category/' . $previd);
     }
 
-    public function product_list(Request $request, $subid,$previd)
+    public function product_list(Request $request, $subid, $previd)
     {
         $post = $request->all();
         $query = App::make('App\ProductModel')->getProductByPcID($subid);
@@ -367,12 +421,16 @@ class ProductController extends Controller
                 \File::makeDirectory($path, $mode = 0777, true, true);
                 $extension = Input::file('image')->getClientOriginalExtension();
                 $fileNmae = uniqid() . '.' . $extension;
-                $width=getimagesize(Input::file('image'))[0];
+                $width = getimagesize(Input::file('image'))[0];
                 Input::file('image')->move($path, $fileNmae);
-                if($width>960){
-                    Image::make($path . '/' . $fileNmae)->resize(960, null,function ($constraint) { $constraint->aspectRatio();})->save($path . '/' . $fileNmae);
+                if ($width > 960) {
+                    Image::make($path . '/' . $fileNmae)->resize(960, null, function ($constraint) {
+                        $constraint->aspectRatio();
+                    })->save($path . '/' . $fileNmae);
                 }
-                Image::make($path . '/' . $fileNmae)->resize(320, null,function ($constraint) { $constraint->aspectRatio();})->save($path . '/_' . $fileNmae);
+                Image::make($path . '/' . $fileNmae)->resize(320, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->save($path . '/_' . $fileNmae);
                 $data['image'] = 'site-images/product/' . $fileNmae;
                 $data['image_thumb'] = 'site-images/product/_' . $fileNmae;
                 $data['pcID'] = $subid;
@@ -399,7 +457,7 @@ class ProductController extends Controller
                     DB::table('product_lang')->where('PdlID', $lrow['PdlID'])->update($lrow);
                 }
             }
-            return redirect('/product/product_list/' . $subid.'/'.$previd);
+            return redirect('/product/product_list/' . $subid . '/' . $previd);
         }
         return view('layout', ['main' => 'product_edit', 'lang' => $lang, 'query' => $query, 'subid' => $subid, 'previd' => $previd]);
     }
@@ -417,7 +475,7 @@ class ProductController extends Controller
             DB::table('product')->where('PdID', $id)->delete();
             DB::table('product_lang')->where('PdID', $id)->delete();
         }
-        return redirect('/product/product_list/' . $subid.'/'.$previd);
+        return redirect('/product/product_list/' . $subid . '/' . $previd);
     }
 
     public function product_star(Request $request)
@@ -431,12 +489,16 @@ class ProductController extends Controller
                 \File::makeDirectory($path, $mode = 0777, true, true);
                 $extension = Input::file('image')->getClientOriginalExtension();
                 $fileNmae = uniqid() . '.' . $extension;
-                $width=getimagesize(Input::file('image'))[0];
+                $width = getimagesize(Input::file('image'))[0];
                 Input::file('image')->move($path, $fileNmae);
-                if($width>1600){
-                    Image::make($path . '/' . $fileNmae)->resize(1600, null,function ($constraint) { $constraint->aspectRatio();})->save($path . '/' . $fileNmae);
+                if ($width > 1600) {
+                    Image::make($path . '/' . $fileNmae)->resize(1600, null, function ($constraint) {
+                        $constraint->aspectRatio();
+                    })->save($path . '/' . $fileNmae);
                 }
-                Image::make($path . '/' . $fileNmae)->resize(320, null,function ($constraint) { $constraint->aspectRatio();})->save($path . '/_' . $fileNmae);
+                Image::make($path . '/' . $fileNmae)->resize(320, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->save($path . '/_' . $fileNmae);
                 $data['image'] = 'site-images/product_star/' . $fileNmae;
                 $data['image_thumb'] = 'site-images/product_star/_' . $fileNmae;
                 $data['order'] = $order + 1;
@@ -537,10 +599,12 @@ class ProductController extends Controller
                 \File::makeDirectory($path, $mode = 0777, true, true);
                 $extension = Input::file('image')->getClientOriginalExtension();
                 $fileNmae = uniqid() . '.' . $extension;
-                $width=getimagesize(Input::file('image'))[0];
+                $width = getimagesize(Input::file('image'))[0];
                 Input::file('image')->move($path, $fileNmae);
-                if($width>1600){
-                    Image::make($path . '/' . $fileNmae)->resize(1600, null,function ($constraint) { $constraint->aspectRatio();})->save($path . '/' . $fileNmae);
+                if ($width > 1600) {
+                    Image::make($path . '/' . $fileNmae)->resize(1600, null, function ($constraint) {
+                        $constraint->aspectRatio();
+                    })->save($path . '/' . $fileNmae);
                 }
                 $data['image'] = 'site-images/product_application_product/' . $fileNmae;
             }
@@ -549,10 +613,12 @@ class ProductController extends Controller
                 \File::makeDirectory($path, $mode = 0777, true, true);
                 $extension = Input::file('image_thumb')->getClientOriginalExtension();
                 $fileNmae = uniqid() . '.' . $extension;
-                $width=getimagesize(Input::file('image_thumb'))[0];
+                $width = getimagesize(Input::file('image_thumb'))[0];
                 Input::file('image_thumb')->move($path, $fileNmae);
-                if($width>320){
-                    Image::make($path . '/' . $fileNmae)->resize(320, null,function ($constraint) { $constraint->aspectRatio();})->save($path . '/' . $fileNmae);
+                if ($width > 320) {
+                    Image::make($path . '/' . $fileNmae)->resize(320, null, function ($constraint) {
+                        $constraint->aspectRatio();
+                    })->save($path . '/' . $fileNmae);
                 }
                 $data['image_thumb'] = 'site-images/product_application_product/' . $fileNmae;
             }
@@ -590,10 +656,12 @@ class ProductController extends Controller
                 \File::makeDirectory($path, $mode = 0777, true, true);
                 $extension = Input::file('image')->getClientOriginalExtension();
                 $fileNmae = uniqid() . '.' . $extension;
-                $width=getimagesize(Input::file('image'))[0];
+                $width = getimagesize(Input::file('image'))[0];
                 Input::file('image')->move($path, $fileNmae);
-                if($width>1600){
-                    Image::make($path . '/' . $fileNmae)->resize(1600, null,function ($constraint) { $constraint->aspectRatio();})->save($path . '/' . $fileNmae);
+                if ($width > 1600) {
+                    Image::make($path . '/' . $fileNmae)->resize(1600, null, function ($constraint) {
+                        $constraint->aspectRatio();
+                    })->save($path . '/' . $fileNmae);
                 }
                 $data['image'] = 'site-images/product_application_product/' . $fileNmae;
                 if ($query->image && file_exists($query->image)) {
@@ -605,10 +673,12 @@ class ProductController extends Controller
                 \File::makeDirectory($path, $mode = 0777, true, true);
                 $extension = Input::file('image_thumb')->getClientOriginalExtension();
                 $fileNmae = uniqid() . '.' . $extension;
-                $width=getimagesize(Input::file('image_thumb'))[0];
+                $width = getimagesize(Input::file('image_thumb'))[0];
                 Input::file('image_thumb')->move($path, $fileNmae);
-                if($width>320){
-                    Image::make($path . '/' . $fileNmae)->resize(320, null,function ($constraint) { $constraint->aspectRatio();})->save($path . '/' . $fileNmae);
+                if ($width > 320) {
+                    Image::make($path . '/' . $fileNmae)->resize(320, null, function ($constraint) {
+                        $constraint->aspectRatio();
+                    })->save($path . '/' . $fileNmae);
                 }
                 $data['image_thumb'] = 'site-images/product_application_product/' . $fileNmae;
                 if ($query->image_thumb && file_exists($query->image_thumb)) {

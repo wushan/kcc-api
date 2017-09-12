@@ -78,6 +78,7 @@ class KccApiController
                     $data['product'][$row->slug]['title']=$row->langs[($post['lang'] - 1)]->title;
                     $data['product'][$row->slug]['intro']=$row->langs[($post['lang'] - 1)]->intro;
                     $data['product'][$row->slug]['extra_intro']=json_decode($row->langs[($post['lang'] - 1)]->extra_intro,true);
+                    $data['product'][$row->slug]['extra_image']=json_decode($row->langs[($post['lang'] - 1)]->extra_image,true);
                     if($sub_category=$row->sub_category){
                         foreach ($sub_category as $s =>$srow){
                             $data['product'][$row->slug]['sub_category'][$s]['title'] = $srow->langs[($post['lang'] - 1)]->title;
