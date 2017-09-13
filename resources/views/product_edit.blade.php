@@ -19,7 +19,7 @@
                             <div class="row">
                                 <div class="form-group">
                                     <div class="fg-line">
-                                        <input type="text" class="form-control input-lg" maxlength="30" placeholder="請輸入標題" name="langs[{{$lrow->Id}}][title]" value="{{$query->langs[$k]->title or ''}}">
+                                        <input type="text" class="form-control input-lg" maxlength="100" placeholder="請輸入標題" name="langs[{{$lrow->Id}}][title]" value="{{$query->langs[$k]->title or ''}}">
                                     </div>
                                 </div>
                             </div>
