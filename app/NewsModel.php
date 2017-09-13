@@ -10,7 +10,7 @@ class NewsModel extends Model
 {
     public function getNews()
     {
-        $news = DB::table('news')->get();
+        $news = DB::table('news')->orderby('date','desc')->get();
         if ($news) {
             foreach ($news as $nrow) {
                 $langs = $this->getNewsLang($nrow->NewsID);
