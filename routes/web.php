@@ -45,6 +45,7 @@ Route::group(['prefix' => 'product'], function () {
     Route::get('/product_star_delete/{id}', 'ProductController@product_star_delete');
     Route::any('/product_star_seo', 'ProductController@product_star_seo');
     Route::any('/product_application', 'ProductController@product_application');
+    Route::any('/product_application_edit/{id}', 'ProductController@product_application_edit');
     Route::any('/product_application_seo', 'ProductController@product_application_seo');
     Route::any('/product_application_product/{id}', 'ProductController@product_application_product');
     Route::any('/product_application_product_add/{id}', 'ProductController@product_application_product_add');
@@ -54,10 +55,12 @@ Route::group(['prefix' => 'product'], function () {
     Route::any('/product_category_add', 'ProductController@product_category_add');
     Route::any('/product_category_edit/{id}', 'ProductController@product_category_edit');
     Route::get('/product_category_delete/{id}', 'ProductController@product_category_delete');
+    Route::get('/delete_product_category_PDF/{id}', 'ProductController@delete_product_category_PDF');
     Route::any('/product_sub_category/{id}', 'ProductController@product_sub_category');
     Route::any('/product_sub_category_add/{id}', 'ProductController@product_sub_category_add');
     Route::any('/product_sub_category_edit/{id}/{previd}', 'ProductController@product_sub_category_edit');
     Route::any('/product_sub_category_delete/{id}/{previd}', 'ProductController@product_sub_category_delete');
+    Route::any('/delete_product_sub_category_PDF/{id}/{previd}', 'ProductController@delete_product_sub_category_PDF');
     Route::any('/product_list/{subid}/{previd}', 'ProductController@product_list');
     Route::any('/product_delete/{id}/{subid}/{previd}', 'ProductController@product_delete');
     Route::any('/product_edit/{id}/{subid}/{previd}', 'ProductController@product_edit');

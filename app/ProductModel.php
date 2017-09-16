@@ -141,6 +141,16 @@ class ProductModel extends Model
         return $application;
     }
 
+    public function getProductApplicationByID($id)
+    {
+        $application = DB::table('product_application')->where('PaID', $id)->first();
+        if ($application) {
+                $langs = $this->getProductApplicationByPaID($application->PaID);
+            $application->langs = $langs;
+        }
+        return $application;
+    }
+
     public function getProductApplicationProductByPaID($id)
     {
         $query = DB::table('product_application_product')->where('paID', $id)->orderBy('order', 'asc')->get();

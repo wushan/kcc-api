@@ -36,6 +36,7 @@
                                             <span class="fileinput-new">Select file</span>
                                             <input type="file" name="file">
                                         </span>
+                                <a href="/product/delete_product_category_PDF/{{$query->PcID}}" class="btn btn-danger">Remove</a>
                                 <span class="fileinput-filename">{{$query->file_name}}</span>
                                 <a href="#" class="close fileinput-exists" data-dismiss="fileinput">×</a>
                             </div>

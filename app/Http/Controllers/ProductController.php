@@ -179,7 +179,7 @@ class ProductController extends Controller
                     $oldImg = isset(json_decode($query->langs[$k - 1]->extra_image)->image) ? json_decode($query->langs[$k - 1]->extra_image)->image : '';
                     $Limg = (isset($oldImg[0])) ? $oldImg[0] : '';
                     $Rimg = (isset($oldImg[1])) ? $oldImg[1] : '';
-                    if($post['type']==0){
+                    if ($post['type'] == 0) {
                         $extra_intro['type'] = $post['type'];
                         $extra_image['image'] = '';
                     }
@@ -266,7 +266,7 @@ class ProductController extends Controller
                         $extra_intro['content'] = $lrow['extra_intro']['content'];
                     }
                     $lang[$k]['extra_intro'] = json_encode($extra_intro);
-                    if (isset($lrow['extra_image'])|| $post['type']==0) {
+                    if (isset($lrow['extra_image']) || $post['type'] == 0) {
                         $lang[$k]['extra_image'] = json_encode($extra_image);
                     }
 
@@ -559,6 +559,49 @@ class ProductController extends Controller
         return view('layout', ['main' => 'product_application', 'application' => $application]);
     }
 
+    public function product_application_edit(Request $request, $id)
+    {
+        $query = App::make('App\ProductModel')->getProductApplicationByID($id);
+        $lang = App::make('App\LangModel')->getLang();
+        $post = $request->all();
+        if ($post) {
+//            if (Input::file('image')) {
+//                $path = public_path() . '/site-images/product_application_product';
+//                \File::makeDirectory($path, $mode = 0777, true, true);
+//                $extension = Input::file('image')->getClientOriginalExtension();
+//                $fileNmae = uniqid() . '.' . $extension;
+//                $width = getimagesize(Input::file('image'))[0];
+//                Input::file('image')->move($path, $fileNmae);
+//                if ($width > 1600) {
+//                    Image::make($path . '/' . $fileNmae)->resize(1600, null, function ($constraint) {
+//                        $constraint->aspectRatio();
+//                    })->save($path . '/' . $fileNmae);
+//                }
+//                $data['image'] = 'site-images/product_application_product/' . $fileNmae;
+//                if ($query->image && file_exists($query->image)) {
+//                    unlink($query->image);
+//                }
+//            }
+            unset($post['_token']);
+            $lang = $post['langs'];
+            if ($lang) {
+                foreach ($lang as $k => $lrow) {
+                    DB::table('product_application_lang')->where('PalID', $lrow['PalID'])->update($lrow);
+                }
+
+            }
+            return redirect('/product/product_application');
+        }
+
+        return view('layout', [
+            'main' => 'product_application_edit',
+            'query' => $query,
+            'id' => $id,
+            'lang' => $lang
+        ]);
+
+    }
+
     public function product_application_product(Request $request, $id)
     {
         $applicationProduct = App::make('App\ProductModel')->getProductApplicationProductByPaID($id);
@@ -780,6 +823,31 @@ class ProductController extends Controller
             return redirect('/product/product_application_seo');
         }
         return view('layout', ['main' => 'product_application_seo', 'lang' => $lang, 'seo' => $seo]);
+    }
+
+    public function delete_product_category_PDF($id)
+    {
+
+        $query = App::make('App\ProductModel')->getProductCategoryByPcID($id);
+        if ($query) {
+            if ($query->file && file_exists($query->file)) {
+                unlink($query->file);
+            }
+            DB::table('product_category')->where('PcID', $id)->update(['file' => '', 'file_name' => '']);
+        }
+        return redirect('/product/product_category_edit/' . $id);
+    }
+
+    public function delete_product_sub_category_PDF($id, $previd)
+    {
+        $query = App::make('App\ProductModel')->getProductSubCategorybyPscID($id);
+        if ($query) {
+            if ($query->file && file_exists($query->file)) {
+                unlink($query->file);
+            }
+            DB::table('product_sub_category')->where('PscID', $id)->update(['file' => '', 'file_name' => '']);
+        }
+        return redirect('/product/product_sub_category_edit/' . $id . '/' . $previd);
     }
 
 }

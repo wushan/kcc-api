@@ -24,6 +24,7 @@
                                 <td width="30%"><img src="{{$arow->image}}"></td>
                                 <td>{{$arow->langs[0]->title}}</td>
                                 <td width="12%">
+                                    <a href="/product/product_application_edit/{{$arow->PaID}}" class="btn btn-success"><i class="zmdi zmdi-edit"></i></a>
                                     <a href="/product/product_application_product/{{$arow->PaID}}" class="btn bgm-deeporange "><i class="zmdi zmdi-collection-folder-image"></i></a>
                                 </td>
                             </tr>
