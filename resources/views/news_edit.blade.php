@@ -37,6 +37,17 @@
                             </div>
                         </div>
 
+                        <p class="c-black f-500 m-b-20 m-t-20">展會日期</p>
+                        <div class="row">
+                            <div class="input-group form-group col-sm-4">
+                                <span class="input-group-addon"><i class="zmdi zmdi-calendar"></i></span>
+                                <div class="dtp-container">
+                                    <input type='text' class="form-control date-picker " data-date-format="YYYY-MM-DD"
+                                           placeholder="選擇日期" name="exhibition_date"  value="{{$news->exhibition_date}}" required>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                     @foreach ($lang as $k=> $lrow)
                         <input type="hidden" class="form-control input-lg" maxlength="30" placeholder="請輸入標題" name="langs[{{$lrow->Id}}][NewslangID]" value="{{$news->langs[$k]->NewslangID}}" required>
@@ -45,7 +56,7 @@
                             <div class="row">
                                 <div class="form-group col-sm-4">
                                     <div class="fg-line ">
-                                        <input type="text" class="form-control input-lg" maxlength="30" placeholder="請輸入標題" name="langs[{{$lrow->Id}}][title]" value="{{$news->langs[$k]->title}}" required>
+                                        <input type="text" class="form-control input-lg" maxlength="100" placeholder="請輸入標題" name="langs[{{$lrow->Id}}][title]" value="{{$news->langs[$k]->title}}" required>
                                     </div>
                                 </div>
                             </div>

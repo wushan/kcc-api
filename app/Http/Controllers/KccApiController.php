@@ -85,6 +85,7 @@ class KccApiController
                             $data['product'][$row->slug]['sub_category'][$s]['file'] = $srow->file;
                             if($product=$srow->products){
                                 foreach ($product as $p =>$prow){
+                                    $data['product'][$row->slug]['sub_category'][$s]['products'][$p]['order'] = $prow->order;
                                     $data['product'][$row->slug]['sub_category'][$s]['products'][$p]['image'] = $prow->image;
                                     $data['product'][$row->slug]['sub_category'][$s]['products'][$p]['image_thumb'] = $prow->image_thumb;
                                     $data['product'][$row->slug]['sub_category'][$s]['products'][$p]['title'] = $prow->langs[($post['lang'] - 1)]->title;
@@ -173,6 +174,7 @@ class KccApiController
                 foreach ($news as $k => $row) {
                     $data['news'][$k]['id'] = $row->NewsID;
                     $data['news'][$k]['date'] = $row->date;
+                    $data['news'][$k]['exhibition_date'] = $row->exhibition_date;
                     $data['news'][$k]['image'] = $row->image;
                     $data['news'][$k]['title'] = $row->langs[($post['lang'] - 1)]->title;
                     $data['news'][$k]['intro'] = $row->langs[($post['lang'] - 1)]->intro;

@@ -81,6 +81,7 @@ class NewsController extends Controller
             unset($post['_token']);
             $lang=$post['langs'];
             $data['date']=$post['date'];
+            $data['exhibition_date']=$post['exhibition_date'];
             $id = DB::table('news')->insertGetId($data);
             if($lang){
                 foreach ($lang as $k=> $lrow){
@@ -115,6 +116,7 @@ class NewsController extends Controller
             unset($post['_token']);
             $lang=$post['langs'];
             $data['date']=$post['date'];
+            $data['exhibition_date']=$post['exhibition_date'];
             DB::table('news')
                 ->where('NewsID', $id)
                 ->update($data);

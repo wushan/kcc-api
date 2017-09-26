@@ -17,10 +17,15 @@
                 </div>
             </form>
         </div>
+        <form action="/product/product_list/{{$subid}}/{{$previd}}" method="post">
+            <div class="card-header">
+                <button type="submit" class="btn bgm-indigo  btn-lg waves-effect">更新排序</button>
+            </div>
         <div class="table-responsive">
             <table id="data-table-basic" class="table table-striped table-bordered">
                 <thead>
                 <tr>
+                    <th>排序</th>
                     <th width="20%">圖片</th>
                     <th>標題</th>
                     <th>說明</th>
@@ -30,6 +35,11 @@
                 <tbody>
                 @foreach ($query as $row)
                 <tr>
+                    <td width="10%">
+                        <div class="form-group fg-line">
+                            <input type="text" name="order[{{$row->PdID}}]" class="form-control input-sm" value="{{$row->order}}" placeholder="排序">
+                        </div>
+                    </td>
                 <td width="30%"><img src="/{{$row->image}}"></td>
                 <td style="vertical-align: middle">{{$row->langs[0]->title}}</td>
                 <td style="vertical-align: middle">{{$row->langs[0]->intro}}</td>
@@ -42,6 +52,8 @@
                 </tbody>
             </table>
         </div>
+            <?php echo csrf_field(); ?>
+        </form>
     </div>
 </div>
 <script src="/css/vendors/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>

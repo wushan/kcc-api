@@ -87,7 +87,7 @@ class ProductModel extends Model
 
     public function getProductByPcID($id)
     {
-        $query = DB::table('product')->where('pcID', $id)->get();
+        $query = DB::table('product')->where('pcID', $id)->orderBy('order','asc')->get();
         if ($query) {
             foreach ($query as $row) {
                 $langs = $this->getProductlangs($row->PdID);

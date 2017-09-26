@@ -15,6 +15,7 @@
                         <tr>
                             <th width="30%">圖片</th>
                             <th>日期</th>
+                            <th>展會日期</th>
                             <th>標題</th>
                             <th>摘要</th>
                             <th>內容</th>
@@ -26,6 +27,7 @@
                             <tr>
                                 <td width="30%"><img src="{{$nrow->image}}"></td>
                                 <td width="10%">{{$nrow->date}}</td>
+                                <td width="10%">{{$nrow->exhibition_date}}</td>
                                 <td>{{$nrow->langs[0]->title}}</td>
                                 <td>{{$nrow->langs[0]->intro}}</td>
                                 <td>{{$nrow->langs[0]->content}}</td>

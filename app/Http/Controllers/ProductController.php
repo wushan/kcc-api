@@ -415,6 +415,14 @@ class ProductController extends Controller
         $post = $request->all();
         $query = App::make('App\ProductModel')->getProductByPcID($subid);
 
+        if (isset($post['order'])) {
+            unset($post['_token']);
+            foreach ($post['order'] as $k => $row) {
+                DB::table('product')->where('PdID', $k)->update(['order' => $row]);
+            }
+            return redirect('/product/product_list/' . $subid . '/' . $previd);
+        }
+
         if ($post) {
             if (Input::file('image')) {
                 $path = public_path() . '/site-images/product';
