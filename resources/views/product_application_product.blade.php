@@ -28,12 +28,15 @@
                         <tbody>
                         @foreach ($applicationProduct as $row)
                             <tr>
-                                <td width="10%">
+                                <td style="cursor: move" width="10%">
+                                    {{$row->order}}
+                                </td>
+                                <td width="30%">
+                                    <img src="/{{$row->image}}">
                                     <div class="form-group fg-line">
-                                        <input type="text" name="order[{{$row->PapID}}]" class="form-control input-sm" value="{{$row->order}}" placeholder="排序">
+                                        <input type="hidden" name="order[]" class="form-control input-sm" value="{{$row->PapID}}" placeholder="排序">
                                     </div>
                                 </td>
-                                <td width="30%"><img src="/{{$row->image}}"></td>
                                 <td>{{$row->langs[0]->title}}</td>
                                 <td>{{$row->langs[0]->intro}}</td>
                                 <td width="12%">
@@ -49,14 +52,19 @@
                 <?php echo csrf_field(); ?>
             </form>
         </div>
-<script src="/css/vendors/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-
+{{--<script src="/css/vendors/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>--}}
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.16/rr-1.2.3/sl-1.2.3/datatables.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
         $('#data-table-basic').dataTable( {
-            "ordering": false,
+//            "ordering": false,
             "lengthChange":false,
-            "searching":false
+            "searching":false,
+            "paging": false,
+            rowReorder: true,
+            columnDefs: [
+                {targets: [1, 2, 3, 4], orderable: false}
+            ]
         } );
     } );
 </script>

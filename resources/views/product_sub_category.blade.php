@@ -20,14 +20,13 @@
                     <tbody>
                     @foreach ($query as $row)
                         <tr>
-                            <td width="10%">
-                                <div class="form-group fg-line">
-                                    <input type="text" name="order[{{$row->PscID}}]" class="form-control input-sm" value="{{$row->order}}" placeholder="排序">
-                                </div>
-                            </td>
+                            <td style="cursor: move" width="10%">{{$row->order}}</td>
                             <td>{{$row->langs[0]->title}}</td>
                             <td><a target="_blank" href="/{{$row->file}}">{{$row->file_name}}</a></td>
                             <td width="15%">
+                                <div class="form-group fg-line">
+                                    <input type="hidden" name="order[]" class="form-control input-sm" value="{{$row->PscID}}" placeholder="排序">
+                                </div>
                                 <a href="/product/product_sub_category_edit/{{$row->PscID}}/{{$previd}}" class="btn btn-success"><i class="zmdi zmdi-edit"></i></a>
                                 <a href="/product/product_sub_category_delete/{{$row->PscID}}/{{$previd}}" onclick="return confirm('確定要刪除?');" class="btn btn-danger sa-warning"><i class="zmdi zmdi-delete"></i></a>
                                 <a href="/product/product_list/{{$row->PscID}}/{{$previd}}" class="btn bgm-deeporange "><i class="zmdi zmdi-collection-folder-image"></i></a>
@@ -41,12 +40,17 @@
         </form>
     </div>
 </div>
-<script src="/css/vendors/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.16/rr-1.2.3/sl-1.2.3/datatables.min.js"></script>
 
 <script type="text/javascript">
     $(document).ready(function () {
         $('#data-table-basic').dataTable({
-            "ordering": false
+//            "ordering": false,
+            "paging": false,
+            rowReorder: true,
+            columnDefs: [
+                {targets: [1, 2, 3], orderable: false}
+            ]
         });
     });
 </script>

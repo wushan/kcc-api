@@ -9,6 +9,14 @@ use Illuminate\Support\Facades\DB;
 class ProductModel extends Model
 {
 
+
+    public function getProductOrder($pcID)
+    {
+        $query = DB::table('product')->where('pcID',$pcID)->max('order');
+
+        return $query;
+    }
+
     public function getProductCategoryApi()
     {
         $query = DB::table('product_category')->get();

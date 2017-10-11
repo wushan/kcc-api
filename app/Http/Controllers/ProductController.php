@@ -323,7 +323,7 @@ class ProductController extends Controller
         if (isset($post['order'])) {
             unset($post['_token']);
             foreach ($post['order'] as $k => $row) {
-                DB::table('product_sub_category')->where('PscID', $k)->update(['order' => $row]);
+                DB::table('product_sub_category')->where('PscID', $row)->update(['order' => $k+1]);
             }
             return redirect('/product/product_sub_category/' . $previd);
         }
@@ -418,7 +418,7 @@ class ProductController extends Controller
         if (isset($post['order'])) {
             unset($post['_token']);
             foreach ($post['order'] as $k => $row) {
-                DB::table('product')->where('PdID', $k)->update(['order' => $row]);
+                DB::table('product')->where('PdID', $row)->update(['order' => $k+1]);
             }
             return redirect('/product/product_list/' . $subid . '/' . $previd);
         }
@@ -426,6 +426,7 @@ class ProductController extends Controller
         if ($post) {
             if (Input::file('image')) {
                 $path = public_path() . '/site-images/product';
+                $order = App::make('App\ProductModel')->getProductOrder($subid);
                 \File::makeDirectory($path, $mode = 0777, true, true);
                 $extension = Input::file('image')->getClientOriginalExtension();
                 $fileNmae = uniqid() . '.' . $extension;
@@ -442,6 +443,7 @@ class ProductController extends Controller
                 $data['image'] = 'site-images/product/' . $fileNmae;
                 $data['image_thumb'] = 'site-images/product/_' . $fileNmae;
                 $data['pcID'] = $subid;
+                $data['order'] = $order+1;
                 $id = DB::table('product')->insertGetId($data);
                 for ($i = 0; $i <= 1; $i++) {
                     DB::table('product_lang')->insert(['PdID' => $id]);
@@ -518,7 +520,7 @@ class ProductController extends Controller
             if (isset($post['order'])) {
                 unset($post['_token']);
                 foreach ($post['order'] as $k => $row) {
-                    DB::table('product_star')->where('PstarID', $k)->update(['order' => $row]);
+                    DB::table('product_star')->where('PstarID', $row)->update(['order' => $k+1]);
                 }
             }
             return redirect('/product/product_star');
@@ -619,7 +621,7 @@ class ProductController extends Controller
         if ($post) {
             unset($post['_token']);
             foreach ($post['order'] as $k => $row) {
-                DB::table('product_application_product')->where('PapID', $k)->update(['order' => $row]);
+                DB::table('product_application_product')->where('PapID', $row)->update(['order' => $k+1]);
             }
             return redirect('/product/product_application_product/' . $id);
         }
