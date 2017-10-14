@@ -95,7 +95,7 @@
                     <div class="row">
                         <div class="form-group col-sm-4">
                             <div class="fg-line ">
-                                <input type="text" class="form-control input-lg" maxlength="30" placeholder="請輸入分類名稱"
+                                <input type="text" class="form-control input-lg" maxlength="100" placeholder="請輸入分類名稱"
                                        name="langs[{{$lrow->Id}}][title]" value="{{$query->langs[$k]->title}}" required>
                             </div>
                         </div>

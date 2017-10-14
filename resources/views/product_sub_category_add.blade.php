@@ -10,7 +10,7 @@
             <form action="/product/product_sub_category_add/{{$previd}}" method="post" enctype="multipart/form-data">
 
                 <div class="tab-content">
-                    <input type="hidden" class="form-control input-lg" maxlength="30" name="date" value="{{time()}}">
+                    <input type="hidden" class="form-control input-lg" maxlength="100" name="date" value="{{time()}}">
 
                     <div role="tabpanel" class="tab-pane active" id="home11">
 
@@ -35,7 +35,7 @@
                             <div class="row">
                                 <div class="form-group">
                                     <div class="fg-line">
-                                        <input type="text" class="form-control input-lg" maxlength="30" placeholder="請輸入次分類名稱" name="langs[{{$lrow->Id}}][title]" >
+                                        <input type="text" class="form-control input-lg" maxlength="100" placeholder="請輸入次分類名稱" name="langs[{{$lrow->Id}}][title]" >
                                     </div>
                                 </div>
                             </div>

@@ -50,7 +50,7 @@
 
                     </div>
                     @foreach ($lang as $k=> $lrow)
-                        <input type="hidden" class="form-control input-lg" maxlength="30" placeholder="請輸入標題" name="langs[{{$lrow->Id}}][NewslangID]" value="{{$news->langs[$k]->NewslangID}}" required>
+                        <input type="hidden" class="form-control input-lg" maxlength="100" placeholder="請輸入標題" name="langs[{{$lrow->Id}}][NewslangID]" value="{{$news->langs[$k]->NewslangID}}" required>
                         <div role="tabpanel" class="tab-pane" id="profile{{$lrow->Id}}">
                             <p class="c-black f-500 m-b-20 m-t-20">標題</p>
                             <div class="row">

@@ -9,7 +9,7 @@
             <form action="/product/product_edit/{{$query->PdID}}/{{$subid}}/{{$previd}}" method="post" enctype="multipart/form-data">
 
                 <div class="tab-content">
-                    <input type="hidden" class="form-control input-lg" maxlength="30" name="item" value="news">
+                    <input type="hidden" class="form-control input-lg" maxlength="100" name="item" value="news">
                     @foreach ($lang as $k=> $lrow)
                         <input type="hidden" class="form-control input-lg" name="langs[{{$lrow->Id}}][PdlID]" value="{{$query->langs[$k]->PdlID or ''}}">
 
