@@ -9,7 +9,7 @@
             <form action="/product/product_star_edit/{{$star->PstarID}}" method="post" enctype="multipart/form-data">
 
                 <div class="tab-content">
-                    <input type="hidden" class="form-control input-lg" maxlength="30" name="item" value="news">
+                    <input type="hidden" class="form-control input-lg" maxlength="100" name="item" value="news">
                     @foreach ($lang as $k=> $lrow)
                         <input type="hidden" class="form-control input-lg" name="langs[{{$lrow->Id}}][PstarlangID]"  value="{{$star->langs[$k]->PstarlangID or ''}}">
 
@@ -19,7 +19,7 @@
                             <div class="row">
                                 <div class="form-group col-sm-4">
                                     <div class="fg-line ">
-                                        <input type="text" class="form-control input-lg" maxlength="30" placeholder="請輸入標題"
+                                        <input type="text" class="form-control input-lg" maxlength="100" placeholder="請輸入標題"
                                                name="langs[{{$lrow->Id}}][title]" value="{{$star->langs[$k]->title or ''}}" required>
                                     </div>
                                 </div>

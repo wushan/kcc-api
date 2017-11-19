@@ -9,7 +9,7 @@
             <form action="/home/home_seo" method="post" enctype="multipart/form-data">
 
                 <div class="tab-content">
-                    <input type="hidden" class="form-control input-lg" maxlength="30" name="item" value="home">
+                    <input type="hidden" class="form-control input-lg" maxlength="100" name="item" value="home">
                     @foreach ($lang as $k=> $lrow)
                         <input type="hidden" class="form-control input-lg" name="langs[{{$lrow->Id}}][SeolangID]"  value="{{$seo->langs[$k]->SeolangID or ''}}">
                         <div role="tabpanel" class="tab-pane" id="profile{{$lrow->Id}}">
