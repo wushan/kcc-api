@@ -738,9 +738,11 @@ class ProductController extends Controller
                     unlink($query->image_thumb);
                 }
             }
-            DB::table('product_application_product')
-                ->where('PapID', $id)
-                ->update($data);
+            if(isset($data)){
+                DB::table('product_application_product')
+                    ->where('PapID', $id)
+                    ->update($data);
+            }
             unset($post['_token']);
             $lang = $post['langs'];
             if ($lang) {
